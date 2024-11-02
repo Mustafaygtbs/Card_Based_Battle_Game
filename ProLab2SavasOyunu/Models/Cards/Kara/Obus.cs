@@ -14,5 +14,15 @@ namespace ProLab2SavasOyunu.Models.Cards.Kara
         public override int DenizVurusAvantaji => 5;
 
         public Obus() : base() { }
+
+        public override bool AvantajVarMi(SavasAraclari hedef)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int GetVurusAvantaji(SavasAraclari hedef)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

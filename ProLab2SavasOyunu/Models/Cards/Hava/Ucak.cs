@@ -13,6 +13,16 @@ namespace ProLab2SavasOyunu.Models.Cards.Hava
         public override string AltSinif => "Ucak";
         public override int KaraVurusAvantaji => 10;
 
-        public Ucak() : base() { }
+        public  Ucak() : base() { }
+
+        public override bool AvantajVarMi(SavasAraclari hedef)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int GetVurusAvantaji(SavasAraclari hedef)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

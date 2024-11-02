@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProLab2SavasOyunu.Core.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +9,9 @@ namespace ProLab2SavasOyunu.Models.Cards
 {
     public abstract class HavaAraclari : SavasAraclari
     {
-        public override string Sinif => "Hava";
-        public abstract string AltSinif { get; }
+        public override KartTipi Sinif => KartTipi.Hava;
+        public abstract override string AltSinif { get; }
         public abstract int KaraVurusAvantaji { get; }
-
-        public HavaAraclari() : base() { }
 
         public override void DurumGuncelle(int hasar)
         {

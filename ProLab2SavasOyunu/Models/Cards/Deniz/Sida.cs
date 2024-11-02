@@ -20,5 +20,15 @@ namespace ProLab2SavasOyunu.Models.Cards.Deniz
         {
             // Sida'ya özel durum güncelleme işlemleri
         }
+
+        public override bool AvantajVarMi(SavasAraclari hedef)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int GetVurusAvantaji(SavasAraclari hedef)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
