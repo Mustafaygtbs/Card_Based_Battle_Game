@@ -1,5 +1,8 @@
-﻿using System;
+﻿using ProLab2SavasOyunu.Properties;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +16,17 @@ namespace ProLab2SavasOyunu.Models.Cards.Hava
         public override string AltSinif => "Siha";
         public override int KaraVurusAvantaji => 10;
         public int DenizVurusAvantaji => 10;
+
+        public override Image KartResmi
+        {
+            get
+            {
+                using (var ms = new MemoryStream(Resources.Ucak))
+                {
+                    return Image.FromStream(ms);
+                }
+            }
+        }
 
         public Siha() : base() { }
 

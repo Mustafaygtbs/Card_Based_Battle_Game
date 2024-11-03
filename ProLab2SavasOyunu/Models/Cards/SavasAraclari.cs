@@ -2,6 +2,7 @@
 using ProLab2SavasOyunu.Core.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace ProLab2SavasOyunu.Models.Cards
         public int SeviyePuani { get; protected set; } = 0;
         public abstract int Dayaniklilik { get; set; }
         public abstract int Vurus { get; set; }
+        public abstract Image KartResmi { get;  }
         public abstract KartTipi Sinif { get; }
         public abstract string AltSinif { get; }
 

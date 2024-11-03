@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\KartControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controllers\OyunController.cs" />
     <Compile Include="Core\Constants\OyunSabitleri.cs" />
     <Compile Include="Core\Enums\KartTipi.cs" />
@@ -77,6 +80,12 @@
     <Compile Include="Services\SavasLog.cs" />
     <Compile Include="Services\SavasLogger.cs" />
     <Compile Include="Services\SavasService.cs" />
+    <EmbeddedResource Include="Controllers\KartControl.resx">
+      <DependentUpon>KartControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -85,6 +94,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
