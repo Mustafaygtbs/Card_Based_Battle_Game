@@ -11,99 +11,101 @@ namespace ProLab2SavasOyunu
 {
     public partial class Form1 : Form
     {
+        private int _kartSayisi;
+        private int _turSayisi;
+        private int guncelTur = 1; 
         private Oyuncu bilgisayar;
         private Oyuncu oyuncu;
 
-        public Form1()
+        public Form1(int kartSayisi, int turSayisi)
         {
             InitializeComponent();
-            InitializeCustomComponents();
+            _kartSayisi = kartSayisi;
+            _turSayisi = turSayisi;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.WindowState = FormWindowState.Maximized;
+
             // Örnek kart listeleri oluşturuluyor
             bilgisayar = new Oyuncu(1, "Bilgisayar");
             oyuncu = new Oyuncu(2, "Kullanıcı");
 
             // Bilgisayar ve oyuncuya kartlar dağıtılıyor
             KartDagitimService kartDagitimService = new KartDagitimService();
-            bilgisayar.KartListesi = kartDagitimService.KartlariDagit(6); 
-            oyuncu.KartListesi = kartDagitimService.KartlariDagit(6);
+            bilgisayar.KartListesi = kartDagitimService.KartlariDagit(_kartSayisi, bilgisayar.Skor);
+            oyuncu.KartListesi = kartDagitimService.KartlariDagit(_kartSayisi, oyuncu.Skor);
 
-            // Kartları FlowPanel'lere ekleyelim
             BilgisayarKartlariniGoster();
             OyuncuKartlariniGoster();
         }
 
-        private void InitializeCustomComponents()
+        // Yeni bir tur başlatan fonksiyon
+        private void YeniTurBaslat()
         {
-            // Bilgisayar Kartları Flow Panel (Üstte)
-            bilgisayarKartlariFlowPanelA = new FlowLayoutPanel
+            if (guncelTur <= _turSayisi)
             {
-                Dock = DockStyle.Top,
-                Height = 200, // Bilgisayar kartları için uygun yükseklik
-                BackColor = Color.LightGray,
-                FlowDirection = FlowDirection.LeftToRight,
-                WrapContents = false,
-                AutoScroll = true
-            };
-            this.Controls.Add(bilgisayarKartlariFlowPanelA);
-
-            // Savaş Alanı Flow Panel (Ortada)
-            savasAlaniFlowPanel = new FlowLayoutPanel
+                MessageBox.Show($"Tur {guncelTur} başlıyor!");
+                // Savaş işlemlerini başlatmak için gerekli fonksiyonları burada çağırabilirsiniz.
+                guncelTur++;
+            }
+            else
             {
-                Dock = DockStyle.Fill, // Ortadaki alanı tamamen kaplayacak
-                BackColor = Color.DarkGray,
-                FlowDirection = FlowDirection.LeftToRight,
-                WrapContents = false,
-                AutoScroll = true
-            };
-            this.Controls.Add(savasAlaniFlowPanel);
-
-            // Oyuncu Kartları Flow Panel (Altta)
-            oyuncuKartlariFlowPanel = new FlowLayoutPanel
-            {
-                Dock = DockStyle.Bottom,
-                Height = 120, // Oyuncu kartları için uygun yükseklik
-                BackColor = Color.LightGray,
-                FlowDirection = FlowDirection.LeftToRight,
-                WrapContents = false,
-                AutoScroll = true
-            };
-            this.Controls.Add(oyuncuKartlariFlowPanel);
+                OyunBitti();
+            }
         }
 
-        // Bilgisayarın kartlarını göster
+        private void OyunBitti()
+        {
+            MessageBox.Show("Oyun Bitti! Skorları değerlendirin.");
+            // Oyun bittiğinde yapılacak diğer işlemler
+        }
+
         private void BilgisayarKartlariniGoster()
         {
             bilgisayarKartlariFlowPanelA.Controls.Clear();
             foreach (var kart in bilgisayar.KartListesi)
             {
-                var kartControl = new KartControl(kart);
+                var kartControl = new KartControl(kart)
+                {
+                    Size = new Size(180, 150)
+                };
                 bilgisayarKartlariFlowPanelA.Controls.Add(kartControl);
             }
         }
 
-        // Oyuncunun kartlarını göster
         private void OyuncuKartlariniGoster()
         {
             oyuncuKartlariFlowPanel.Controls.Clear();
             foreach (var kart in oyuncu.KartListesi)
             {
-                var kartControl = new KartControl(kart);
+                var kartControl = new KartControl(kart)
+                {
+                    Size = new Size(180, 150)
+                };
                 oyuncuKartlariFlowPanel.Controls.Add(kartControl);
             }
         }
 
-        // Savaş alanına seçilen kartları göster
         public void SavasAlaninaKartEkle(SavasAraclari oyuncuKart, SavasAraclari bilgisayarKart)
         {
             savasAlaniFlowPanel.Controls.Clear();
-            var oyuncuKartControl = new KartControl(oyuncuKart);
-            var bilgisayarKartControl = new KartControl(bilgisayarKart);
+            var oyuncuKartControl = new KartControl(oyuncuKart)
+            {
+                Size = new Size(180, 150)
+            };
+            var bilgisayarKartControl = new KartControl(bilgisayarKart)
+            {
+                Size = new Size(180, 150)
+            };
             savasAlaniFlowPanel.Controls.Add(oyuncuKartControl);
             savasAlaniFlowPanel.Controls.Add(bilgisayarKartControl);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

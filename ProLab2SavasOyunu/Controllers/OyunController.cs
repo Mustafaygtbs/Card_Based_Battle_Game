@@ -35,8 +35,8 @@ namespace ProLab2SavasOyunu.Controllers
             _bilgisayar = new Oyuncu(2, "Bilgisayar");
 
             // Başlangıç kartlarını dağıt
-            _kullanici.KartListesi = _kartDagitimService.KartlariDagit(6);
-            _bilgisayar.KartListesi = _kartDagitimService.KartlariDagit(6);
+            _kullanici.KartListesi = _kartDagitimService.KartlariDagit(6,_bilgisayar.SeviyePuani);
+            _bilgisayar.KartListesi = _kartDagitimService.KartlariDagit(6,_kullanici.SeviyePuani);
 
             // Oyun döngüsü
             while (_guncelHamle < _toplamHamleSayisi && !OyunBittiMi())
@@ -85,8 +85,8 @@ namespace ProLab2SavasOyunu.Controllers
                 _kartDagitimService.YeniKartEkle(_kullanici.SeviyePuani);
                 _kartDagitimService.YeniKartEkle(_bilgisayar.SeviyePuani);
 
-                _kullanici.KartEkle(_kartDagitimService.KartlariDagit(1)[0]);
-                _bilgisayar.KartEkle(_kartDagitimService.KartlariDagit(1)[0]);
+                _kullanici.KartEkle(_kartDagitimService.KartlariDagit(1,_kullanici.SeviyePuani)[0]);
+                _bilgisayar.KartEkle(_kartDagitimService.KartlariDagit(1,_bilgisayar.SeviyePuani)[0]);
 
                 // Skorları göster
                 _kullanici.SkorGoster();

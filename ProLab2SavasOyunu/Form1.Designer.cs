@@ -28,77 +28,99 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.oyuncuKartlariFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.KullaniciOyunAlani = new System.Windows.Forms.Panel();
-            this.savasAlaniFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.SavasAlani = new System.Windows.Forms.Panel();
+            this.gbBilgisayarKartlari = new System.Windows.Forms.GroupBox();
+            this.gbSavasAlani = new System.Windows.Forms.GroupBox();
+            this.gbOyuncuKartlari = new System.Windows.Forms.GroupBox();
             this.bilgisayarKartlariFlowPanelA = new System.Windows.Forms.FlowLayoutPanel();
-            this.KullaniciOyunAlani.SuspendLayout();
-            this.SavasAlani.SuspendLayout();
+            this.savasAlaniFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.oyuncuKartlariFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.gbBilgisayarKartlari.SuspendLayout();
+            this.gbSavasAlani.SuspendLayout();
+            this.gbOyuncuKartlari.SuspendLayout();
             this.SuspendLayout();
             // 
-            // oyuncuKartlariFlowPanel
+            // gbBilgisayarKartlari
             // 
-            this.oyuncuKartlariFlowPanel.Location = new System.Drawing.Point(236, 62);
-            this.oyuncuKartlariFlowPanel.Name = "oyuncuKartlariFlowPanel";
-            this.oyuncuKartlariFlowPanel.Size = new System.Drawing.Size(1049, 145);
-            this.oyuncuKartlariFlowPanel.TabIndex = 0;
+            this.gbBilgisayarKartlari.Controls.Add(this.bilgisayarKartlariFlowPanelA);
+            this.gbBilgisayarKartlari.Location = new System.Drawing.Point(12, 12);
+            this.gbBilgisayarKartlari.Name = "gbBilgisayarKartlari";
+            this.gbBilgisayarKartlari.Size = new System.Drawing.Size(1513, 302);
+            this.gbBilgisayarKartlari.TabIndex = 0;
+            this.gbBilgisayarKartlari.TabStop = false;
+            this.gbBilgisayarKartlari.Text = "groupBox1";
             // 
-            // KullaniciOyunAlani
+            // gbSavasAlani
             // 
-            this.KullaniciOyunAlani.Controls.Add(this.oyuncuKartlariFlowPanel);
-            this.KullaniciOyunAlani.Location = new System.Drawing.Point(12, 552);
-            this.KullaniciOyunAlani.Name = "KullaniciOyunAlani";
-            this.KullaniciOyunAlani.Size = new System.Drawing.Size(1262, 256);
-            this.KullaniciOyunAlani.TabIndex = 2;
+            this.gbSavasAlani.Controls.Add(this.savasAlaniFlowPanel);
+            this.gbSavasAlani.Location = new System.Drawing.Point(12, 320);
+            this.gbSavasAlani.Name = "gbSavasAlani";
+            this.gbSavasAlani.Size = new System.Drawing.Size(1507, 205);
+            this.gbSavasAlani.TabIndex = 1;
+            this.gbSavasAlani.TabStop = false;
+            this.gbSavasAlani.Text = "groupBox2";
             // 
-            // savasAlaniFlowPanel
+            // gbOyuncuKartlari
             // 
-            this.savasAlaniFlowPanel.Location = new System.Drawing.Point(403, 44);
-            this.savasAlaniFlowPanel.Name = "savasAlaniFlowPanel";
-            this.savasAlaniFlowPanel.Size = new System.Drawing.Size(801, 85);
-            this.savasAlaniFlowPanel.TabIndex = 0;
-            // 
-            // SavasAlani
-            // 
-            this.SavasAlani.Controls.Add(this.savasAlaniFlowPanel);
-            this.SavasAlani.Location = new System.Drawing.Point(12, 285);
-            this.SavasAlani.Name = "SavasAlani";
-            this.SavasAlani.Size = new System.Drawing.Size(1262, 261);
-            this.SavasAlani.TabIndex = 1;
+            this.gbOyuncuKartlari.Controls.Add(this.oyuncuKartlariFlowPanel);
+            this.gbOyuncuKartlari.Location = new System.Drawing.Point(12, 531);
+            this.gbOyuncuKartlari.Name = "gbOyuncuKartlari";
+            this.gbOyuncuKartlari.Size = new System.Drawing.Size(1516, 302);
+            this.gbOyuncuKartlari.TabIndex = 2;
+            this.gbOyuncuKartlari.TabStop = false;
+            this.gbOyuncuKartlari.Text = "groupBox3";
             // 
             // bilgisayarKartlariFlowPanelA
             // 
-            this.bilgisayarKartlariFlowPanelA.Location = new System.Drawing.Point(12, 12);
+            this.bilgisayarKartlariFlowPanelA.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.bilgisayarKartlariFlowPanelA.Location = new System.Drawing.Point(3, 16);
             this.bilgisayarKartlariFlowPanelA.Name = "bilgisayarKartlariFlowPanelA";
-            this.bilgisayarKartlariFlowPanelA.Size = new System.Drawing.Size(1262, 267);
+            this.bilgisayarKartlariFlowPanelA.Size = new System.Drawing.Size(1507, 283);
             this.bilgisayarKartlariFlowPanelA.TabIndex = 0;
+            // 
+            // savasAlaniFlowPanel
+            // 
+            this.savasAlaniFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.savasAlaniFlowPanel.Location = new System.Drawing.Point(3, 16);
+            this.savasAlaniFlowPanel.Name = "savasAlaniFlowPanel";
+            this.savasAlaniFlowPanel.Size = new System.Drawing.Size(1501, 186);
+            this.savasAlaniFlowPanel.TabIndex = 1;
+            // 
+            // oyuncuKartlariFlowPanel
+            // 
+            this.oyuncuKartlariFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.oyuncuKartlariFlowPanel.Location = new System.Drawing.Point(3, 16);
+            this.oyuncuKartlariFlowPanel.Name = "oyuncuKartlariFlowPanel";
+            this.oyuncuKartlariFlowPanel.Size = new System.Drawing.Size(1510, 283);
+            this.oyuncuKartlariFlowPanel.TabIndex = 1;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1540, 845);
-            this.Controls.Add(this.bilgisayarKartlariFlowPanelA);
-            this.Controls.Add(this.KullaniciOyunAlani);
-            this.Controls.Add(this.SavasAlani);
+            this.Controls.Add(this.gbOyuncuKartlari);
+            this.Controls.Add(this.gbSavasAlani);
+            this.Controls.Add(this.gbBilgisayarKartlari);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.KullaniciOyunAlani.ResumeLayout(false);
-            this.SavasAlani.ResumeLayout(false);
+            this.gbBilgisayarKartlari.ResumeLayout(false);
+            this.gbSavasAlani.ResumeLayout(false);
+            this.gbOyuncuKartlari.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.FlowLayoutPanel oyuncuKartlariFlowPanel;
-        private System.Windows.Forms.Panel KullaniciOyunAlani;
-        private System.Windows.Forms.FlowLayoutPanel savasAlaniFlowPanel;
-        private System.Windows.Forms.Panel SavasAlani;
+        private System.Windows.Forms.GroupBox gbBilgisayarKartlari;
         private System.Windows.Forms.FlowLayoutPanel bilgisayarKartlariFlowPanelA;
+        private System.Windows.Forms.GroupBox gbSavasAlani;
+        private System.Windows.Forms.FlowLayoutPanel savasAlaniFlowPanel;
+        private System.Windows.Forms.GroupBox gbOyuncuKartlari;
+        private System.Windows.Forms.FlowLayoutPanel oyuncuKartlariFlowPanel;
     }
 }
 
