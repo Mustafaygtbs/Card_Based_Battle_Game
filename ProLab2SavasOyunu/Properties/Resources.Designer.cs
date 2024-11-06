@@ -63,9 +63,79 @@ namespace ProLab2SavasOyunu.Properties {
         /// <summary>
         ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        internal static byte[] Gemi {
+            get {
+                object obj = ResourceManager.GetObject("Gemi", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static byte[] gemi1 {
+            get {
+                object obj = ResourceManager.GetObject("gemi1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static byte[] kfs1 {
+            get {
+                object obj = ResourceManager.GetObject("kfs1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static byte[] kızılelma {
+            get {
+                object obj = ResourceManager.GetObject("kızılelma", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static byte[] sida {
+            get {
+                object obj = ResourceManager.GetObject("sida", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static byte[] tank {
+            get {
+                object obj = ResourceManager.GetObject("tank", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         internal static byte[] Ucak {
             get {
                 object obj = ResourceManager.GetObject("Ucak", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static byte[] ucak2 {
+            get {
+                object obj = ResourceManager.GetObject("ucak2", resourceCulture);
                 return ((byte[])(obj));
             }
         }

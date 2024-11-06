@@ -21,7 +21,7 @@ namespace ProLab2SavasOyunu.Models.Cards.Hava
         {
             get
             {
-                using (var ms = new MemoryStream(Resources.Ucak))
+                using (var ms = new MemoryStream(Resources.kızılelma))
                 {
                     return Image.FromStream(ms);
                 }

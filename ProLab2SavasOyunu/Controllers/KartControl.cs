@@ -1,6 +1,7 @@
 ﻿using ProLab2SavasOyunu.Models.Cards;
 using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace ProLab2SavasOyunu.Controllers
@@ -18,6 +19,7 @@ namespace ProLab2SavasOyunu.Controllers
         {
             InitializeComponent();
             KartGuncelle(kart);              // Kartın bilgilerini günceller
+            this.Paint += KartControl_Paint;  // Paint olayını ekliyoruz
         }
 
         private void InitializeComponent()
@@ -33,12 +35,14 @@ namespace ProLab2SavasOyunu.Controllers
             // 
             // kartGorsel
             // 
-            this.kartGorsel.Location = new System.Drawing.Point(3, 3);
+            this.kartGorsel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kartGorsel.Location = new System.Drawing.Point(0, 0);
             this.kartGorsel.Name = "kartGorsel";
-            this.kartGorsel.Size = new System.Drawing.Size(177, 150);
+            this.kartGorsel.Size = new System.Drawing.Size(180, 150);
             this.kartGorsel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.kartGorsel.TabIndex = 0;
             this.kartGorsel.TabStop = false;
+            this.kartGorsel.Click += new System.EventHandler(this.kartGorsel_Click);
             // 
             // kartTuruLabel
             // 
@@ -88,7 +92,6 @@ namespace ProLab2SavasOyunu.Controllers
             // KartControl
             // 
             this.BackColor = System.Drawing.Color.PowderBlue;
-            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.kartTuruLabel);
             this.Controls.Add(this.puanLabel);
             this.Controls.Add(this.hasarLabel);
@@ -97,11 +100,35 @@ namespace ProLab2SavasOyunu.Controllers
             this.Controls.Add(this.kartGorsel);
             this.Name = "KartControl";
             this.Size = new System.Drawing.Size(180, 150);
-            this.Load += new System.EventHandler(this.KartControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.kartGorsel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
+        }
+
+        private void KartControl_Paint(object sender, PaintEventArgs e)
+        {
+            int radius = 20; // Köşe yuvarlaklık değeri
+
+            // Yuvarlak kenarlı bir dikdörtgen çizmek için GraphicsPath kullanıyoruz
+            GraphicsPath path = new GraphicsPath();
+            path.AddArc(0, 0, radius, radius, 180, 90);
+            path.AddArc(this.Width - radius, 0, radius, radius, 270, 90);
+            path.AddArc(this.Width - radius, this.Height - radius, radius, radius, 0, 90);
+            path.AddArc(0, this.Height - radius, radius, radius, 90, 90);
+            path.CloseAllFigures();
+
+            // Kontrolün `Region` özelliğini yuvarlak kenarlı dikdörtgen yapıyoruz
+            this.Region = new Region(path);
+
+            // Çizim efektleri için AntiAliasing
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+
+            // Kartın kenar çerçevesini çiziyoruz
+            using (Pen pen = new Pen(Color.DarkSlateGray, 3))
+            {
+                e.Graphics.DrawPath(pen, path);
+            }
         }
 
         // Kart verilerini güncelleyerek kontrolü dinamik hale getirme
@@ -117,10 +144,14 @@ namespace ProLab2SavasOyunu.Controllers
             seviyePuaniLabel.Text = $"Seviye: {kart.SeviyePuani}";
 
             // Kart türünü gösteren label
-            kartTuruLabel.Text = kart.GetType().Name;  // Kartın sınıf adını tür olarak gösterebiliriz
+            kartTuruLabel.Text = kart.GetType().Name;
         }
 
         private void KartControl_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void kartGorsel_Click(object sender, EventArgs e)
         {
 
         }

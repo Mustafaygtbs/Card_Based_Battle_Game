@@ -21,7 +21,7 @@ namespace ProLab2SavasOyunu.Models.Cards.Deniz
         {
             get
             {
-                using (var ms = new MemoryStream(Resources.Ucak))
+                using (var ms = new MemoryStream(Resources.sida))
                 {
                     return Image.FromStream(ms);
                 }

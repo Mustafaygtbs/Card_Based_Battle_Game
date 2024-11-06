@@ -20,7 +20,7 @@ namespace ProLab2SavasOyunu.Models.Cards.Kara
         {
             get
             {
-                using (var ms = new MemoryStream(Resources.Ucak))
+                using (var ms = new MemoryStream(Resources.kfs1))
                 {
                     return Image.FromStream(ms);
                 }

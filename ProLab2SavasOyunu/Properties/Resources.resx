@@ -121,4 +121,25 @@
   <data name="Ucak" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\saatkulesifoto.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Gemi" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tank" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\t2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="kızılelma" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\jet1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ucak2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ucak2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="kfs1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\kfs1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="gemi1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gemi1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sida" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sida.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
