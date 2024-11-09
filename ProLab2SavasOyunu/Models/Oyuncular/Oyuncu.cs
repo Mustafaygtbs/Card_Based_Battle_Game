@@ -1,27 +1,24 @@
-﻿using ProLab2SavasOyunu.Core.Interfaces;
-using ProLab2SavasOyunu.Models.Cards;
+﻿using ProLab2SavasOyunu.Models.Cards;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProLab2SavasOyunu.Models.Oyuncular
 {
-    public class Oyuncu : IOyuncu
+    public class Oyuncu
     {
         public int OyuncuID { get; set; }
         public string OyuncuAdi { get; set; }
-        public int Skor { get; set; } 
-        public int SeviyePuani { get; set; } 
-        public List<SavasAraclari> KartListesi { get; set; } 
-        private List<SavasAraclari> KullanilanKartlar { get; set; }
+        public int Skor { get; private set; }
+        public int SeviyePuani { get; private set; }
+        public List<SavasAraclari> KartListesi { get; set; }
+        private List<Guid> KullanilanKartlar { get; set; }
         private readonly Random _random;
 
         public Oyuncu()
         {
             KartListesi = new List<SavasAraclari>();
-            KullanilanKartlar = new List<SavasAraclari>();
+            KullanilanKartlar = new List<Guid>();
             _random = new Random();
         }
 
@@ -38,60 +35,53 @@ namespace ProLab2SavasOyunu.Models.Oyuncular
             Console.WriteLine($"Oyuncu: {OyuncuAdi}, Skor: {Skor}, Seviye Puanı: {SeviyePuani}");
         }
 
-        public List<SavasAraclari> KartSec()
+        public List<SavasAraclari> KartSec(int adet)
         {
             var secilenKartlar = new List<SavasAraclari>();
 
-            if (OyuncuAdi == "Bilgisayar")
-            {
-                // Bilgisayar için rastgele kart seçimi
-                while (secilenKartlar.Count < 3)
-                {
-                    var kart = KartListesi[_random.Next(KartListesi.Count)];
-                    if (!KullanilanKartlar.Contains(kart))
-                    {
-                        secilenKartlar.Add(kart);
-                        KullanilanKartlar.Add(kart);
-                    }
+            // Kullanılabilir kartları alıyoruz
+            var kullanilabilirKartlar = KullanilmayanKartlariGetir();
 
-                    // Tüm kartlar kullanıldıysa liste temizlenir
-                    if (KullanilanKartlar.Count == KartListesi.Count)
-                        KullanilanKartlar.Clear();
-                }
+            // Eğer tüm kartlar kullanıldıysa, kartları sıfırlıyoruz
+            if (kullanilabilirKartlar.Count < adet)
+            {
+                KartlariSifirla();
+                kullanilabilirKartlar = KullanilmayanKartlariGetir();
             }
-            else
+
+            // Rastgele kart seçimi
+            while (secilenKartlar.Count < adet && kullanilabilirKartlar.Count > 0)
             {
-                // Kullanıcı için manuel kart seçimi
-                Console.WriteLine("Lütfen kullanmak istediğiniz 3 kartın indekslerini seçin:");
-                for (int i = 0; i < KartListesi.Count; i++)
-                {
-                    Console.WriteLine($"{i}: {KartListesi[i].GetType().Name}");
-                }
+                int index = _random.Next(kullanilabilirKartlar.Count);
+                var kart = kullanilabilirKartlar[index];
 
-                // Kullanıcının üç kart seçmesini sağlamak
-                while (secilenKartlar.Count < 3)
-                {
-                    int index;
-                    bool gecerliGiris = int.TryParse(Console.ReadLine(), out index) && index >= 0 && index < KartListesi.Count;
-
-                    if (gecerliGiris && !secilenKartlar.Contains(KartListesi[index]))
-                    {
-                        secilenKartlar.Add(KartListesi[index]);
-                        KullanilanKartlar.Add(KartListesi[index]);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Geçersiz seçim veya zaten seçilmiş kart. Tekrar deneyin.");
-                    }
-
-                    // Tüm kartlar kullanıldıysa liste temizlenir
-                    if (KullanilanKartlar.Count == KartListesi.Count)
-                        KullanilanKartlar.Clear();
-                }
+                secilenKartlar.Add(kart);
+                kart.KullanildiMi = true;
+                kullanilabilirKartlar.RemoveAt(index);
             }
 
             return secilenKartlar;
         }
+
+        public List<SavasAraclari> KullanilmayanKartlariGetir()
+        {
+            return KartListesi.Where(k => !k.KullanildiMi).ToList();
+        }
+        public bool TumKartlarKullanildiMi()
+        {
+            return KartListesi.All(k => k.KullanildiMi);
+        }
+
+        // Kartları sıfırla (tüm kartları kullanılmamış olarak işaretle)
+        public void KartlariSifirla()
+        {
+            foreach (var kart in KartListesi)
+            {
+                kart.KullanildiMi = false;
+            }
+        }
+
+
 
         public void KartEkle(SavasAraclari kart)
         {

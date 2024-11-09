@@ -12,6 +12,7 @@ namespace ProLab2SavasOyunu.Models.Cards
         public override KartTipi Sinif => KartTipi.Kara;
         public abstract override string AltSinif { get; }
         public abstract int DenizVurusAvantaji { get; }
+        public KaraAraclari(int seviyePuani = 0) : base(seviyePuani) { }
 
         public override void DurumGuncelle(int hasar)
         {

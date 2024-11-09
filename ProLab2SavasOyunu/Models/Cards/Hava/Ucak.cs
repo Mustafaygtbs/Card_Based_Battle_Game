@@ -1,11 +1,8 @@
-﻿using ProLab2SavasOyunu.Properties;
+﻿using ProLab2SavasOyunu.Core.Enums;
+using ProLab2SavasOyunu.Properties;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProLab2SavasOyunu.Models.Cards.Hava
 {
@@ -16,29 +13,34 @@ namespace ProLab2SavasOyunu.Models.Cards.Hava
         public override string AltSinif => "Ucak";
         public override int KaraVurusAvantaji => 10;
 
-            public override Image KartResmi
+        public override Image KartResmi
+        {
+            get
             {
-                get
+                using (var ms = new MemoryStream(Resources.ucak2))
                 {
-                    using (var ms = new MemoryStream(Resources.ucak2)) 
-                    {
-                        return Image.FromStream(ms);
-                    }
+                    return Image.FromStream(ms);
                 }
             }
+        }
+        public Ucak() : base() { }
 
-        
+        public Ucak(int seviyePuani = 0) : base(seviyePuani) { }
 
-        public  Ucak() : base() { }
-
-        public override bool AvantajVarMi(SavasAraclari hedef)
+        public override void DurumGuncelle(int hasar)
         {
-            throw new NotImplementedException();
+            Dayaniklilik -= hasar;
+            if (Dayaniklilik <= 0)
+            {
+                Dayaniklilik = 0; // Dayanıklılık sıfırın altına düşmez
+                Console.WriteLine($"{AltSinif} aracı devre dışı kaldı!");
+            }
         }
 
         public override int GetVurusAvantaji(SavasAraclari hedef)
         {
-            throw new NotImplementedException();
+            
+            return hedef.Sinif == KartTipi.Kara ? KaraVurusAvantaji : 0;
         }
     }
 }

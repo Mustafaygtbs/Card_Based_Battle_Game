@@ -1,11 +1,8 @@
-﻿using ProLab2SavasOyunu.Properties;
+﻿using ProLab2SavasOyunu.Core.Enums;
+using ProLab2SavasOyunu.Properties;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProLab2SavasOyunu.Models.Cards.Hava
 {
@@ -27,22 +24,29 @@ namespace ProLab2SavasOyunu.Models.Cards.Hava
                 }
             }
         }
-
         public Siha() : base() { }
+        public Siha(int seviyePuani = 0) : base(seviyePuani) { }
 
         public override void DurumGuncelle(int hasar)
         {
-            // Siha'ya özel durum güncelleme işlemleri
-        }
-
-        public override bool AvantajVarMi(SavasAraclari hedef)
-        {
-            throw new NotImplementedException();
-        }
-
+            Dayaniklilik -= hasar;
+            if (Dayaniklilik <= 0)
+            {
+                Dayaniklilik = 0; // Dayanıklılık sıfırın altına düşemez
+                Console.WriteLine($"{AltSinif} aracı devre dışı kaldı!");
+            }
+        }   
         public override int GetVurusAvantaji(SavasAraclari hedef)
         {
-            throw new NotImplementedException();
+            if (hedef.Sinif == KartTipi.Kara)
+            {
+                return KaraVurusAvantaji; 
+            }
+            else if (hedef.Sinif == KartTipi.Deniz)
+            {
+                return DenizVurusAvantaji; 
+            }
+            return 0;
         }
     }
 }

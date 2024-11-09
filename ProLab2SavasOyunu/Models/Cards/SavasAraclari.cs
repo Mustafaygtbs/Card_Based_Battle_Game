@@ -1,28 +1,31 @@
 ﻿using ProLab2SavasOyunu.Core.Enums;
-using ProLab2SavasOyunu.Core.Interfaces;
+
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProLab2SavasOyunu.Models.Cards
 {
-    public abstract class SavasAraclari : ISavasabilir, IDayanabilir
+    public abstract class SavasAraclari 
     {
-        public int SeviyePuani { get; protected set; } = 0;
+        public Guid Id { get; }  // Benzersiz kart kimliği
+        public int SeviyePuani { get; set; }
         public abstract int Dayaniklilik { get; set; }
         public abstract int Vurus { get; set; }
-        public abstract Image KartResmi { get;  }
         public abstract KartTipi Sinif { get; }
         public abstract string AltSinif { get; }
+        public abstract Image KartResmi { get; }
+        public bool KullanildiMi { get; set; }  // Kartın kullanılıp kullanılmadığını takip eder
 
-        public SavasAraclari() { }
+        public SavasAraclari(int seviyePuani = 0)
+        {
+            Id = Guid.NewGuid();  // Her kart için benzersiz bir ID oluşturulur
+            SeviyePuani = seviyePuani;
+            KullanildiMi = false;
+        }
 
         public void KartPuaniGoster()
         {
-            Console.WriteLine($"Seviye Puanı: {SeviyePuani}, Dayanıklılık: {Dayaniklilik}, Vuruş: {Vurus}, Sınıf: {Sinif}, Alt Sınıf: {AltSinif}");
+            Console.WriteLine($"Dayanıklılık: {Dayaniklilik}, Seviye Puanı: {SeviyePuani}");
         }
 
         public abstract void DurumGuncelle(int hasar);
@@ -30,14 +33,10 @@ namespace ProLab2SavasOyunu.Models.Cards
         public virtual int SaldiriHesapla(SavasAraclari hedef)
         {
             int saldiriGucu = Vurus;
-            if (AvantajVarMi(hedef))
-            {
-                saldiriGucu += GetVurusAvantaji(hedef);
-            }
+            int avantaj = GetVurusAvantaji(hedef);
+            saldiriGucu += avantaj;
             return saldiriGucu;
         }
-
-        public abstract bool AvantajVarMi(SavasAraclari hedef);
 
         public abstract int GetVurusAvantaji(SavasAraclari hedef);
 

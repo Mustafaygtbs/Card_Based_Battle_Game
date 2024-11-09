@@ -1,11 +1,8 @@
-﻿using ProLab2SavasOyunu.Properties;
+﻿using ProLab2SavasOyunu.Core.Enums;
+using ProLab2SavasOyunu.Properties;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProLab2SavasOyunu.Models.Cards.Deniz
 {
@@ -14,35 +11,46 @@ namespace ProLab2SavasOyunu.Models.Cards.Deniz
         public override int Dayaniklilik { get; set; } = 15;
         public override int Vurus { get; set; } = 10;
         public override string AltSinif => "Sida";
-        public override int HavaVurusAvantaji => 5;
+        public override int HavaVurusAvantaji => 10;
         public int KaraVurusAvantaji => 10;
 
         public override Image KartResmi
         {
             get
             {
-                using (var ms = new MemoryStream(Resources.sida))
+                using (var ms = new MemoryStream(Resources.sida2))
                 {
                     return Image.FromStream(ms);
                 }
             }
         }
-
         public Sida() : base() { }
+        public Sida(int seviyePuani = 0) : base(seviyePuani) { }
+      
 
         public override void DurumGuncelle(int hasar)
         {
-            // Sida'ya özel durum güncelleme işlemleri
+            Dayaniklilik -= hasar;
+            if (Dayaniklilik <= 0)
+            {
+                Dayaniklilik = 0; 
+                Console.WriteLine($"{AltSinif} aracı devre dışı kaldı!");
+            }
         }
 
-        public override bool AvantajVarMi(SavasAraclari hedef)
-        {
-            throw new NotImplementedException();
-        }
+     
 
         public override int GetVurusAvantaji(SavasAraclari hedef)
         {
-            throw new NotImplementedException();
+            if (hedef.Sinif == KartTipi.Kara)
+            {
+                return KaraVurusAvantaji; 
+            }
+            else if (hedef.Sinif == KartTipi.Hava)
+            {
+                return HavaVurusAvantaji; 
+            }
+            return 0;
         }
     }
 }

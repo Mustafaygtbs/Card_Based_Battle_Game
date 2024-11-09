@@ -41,9 +41,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label1.Location = new System.Drawing.Point(179, 49);
+            this.label1.Location = new System.Drawing.Point(239, 60);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(517, 26);
+            this.label1.Size = new System.Drawing.Size(636, 31);
             this.label1.TabIndex = 0;
             this.label1.Text = "Selamlar Babayiğitler Yiğit Meydanına Hoş Geldiniz ";
             // 
@@ -51,35 +52,40 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label2.Location = new System.Drawing.Point(288, 106);
+            this.label2.Location = new System.Drawing.Point(384, 130);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(304, 26);
+            this.label2.Size = new System.Drawing.Size(377, 31);
             this.label2.TabIndex = 1;
             this.label2.Text = "Lütfen Oyun Ayarlarını Seçiniz";
             // 
             // kartSayisiComboBox
             // 
-            this.kartSayisiComboBox.FormattingEnabled = true;
-            this.kartSayisiComboBox.Location = new System.Drawing.Point(201, 200);
+        //    this.kartSayisiComboBox.FormattingEnabled = true;
+            this.kartSayisiComboBox.Location = new System.Drawing.Point(268, 246);
+            this.kartSayisiComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.kartSayisiComboBox.Name = "kartSayisiComboBox";
-            this.kartSayisiComboBox.Size = new System.Drawing.Size(94, 21);
+            this.kartSayisiComboBox.Size = new System.Drawing.Size(124, 24);
             this.kartSayisiComboBox.TabIndex = 2;
+            this.kartSayisiComboBox.SelectedIndexChanged += new System.EventHandler(this.kartSayisiComboBox_SelectedIndexChanged);
             // 
             // turSayisiComboBox
             // 
             this.turSayisiComboBox.FormattingEnabled = true;
-            this.turSayisiComboBox.Location = new System.Drawing.Point(472, 200);
+            this.turSayisiComboBox.Location = new System.Drawing.Point(629, 246);
+            this.turSayisiComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.turSayisiComboBox.Name = "turSayisiComboBox";
-            this.turSayisiComboBox.Size = new System.Drawing.Size(121, 21);
+            this.turSayisiComboBox.Size = new System.Drawing.Size(160, 24);
             this.turSayisiComboBox.TabIndex = 3;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label3.Location = new System.Drawing.Point(201, 160);
+            this.label3.Location = new System.Drawing.Point(268, 197);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(156, 20);
+            this.label3.Size = new System.Drawing.Size(200, 25);
             this.label3.TabIndex = 4;
             this.label3.Text = "Kart Sayısı (Kişi Başı)";
             // 
@@ -87,17 +93,19 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label4.Location = new System.Drawing.Point(468, 160);
+            this.label4.Location = new System.Drawing.Point(624, 197);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(161, 20);
+            this.label4.Size = new System.Drawing.Size(206, 25);
             this.label4.TabIndex = 5;
             this.label4.Text = "Oyun Kaç Tur Sürmeli";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(341, 258);
+            this.button1.Location = new System.Drawing.Point(455, 318);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(104, 65);
+            this.button1.Size = new System.Drawing.Size(139, 80);
             this.button1.TabIndex = 6;
             this.button1.Text = "Başla";
             this.button1.UseVisualStyleBackColor = true;
@@ -105,9 +113,9 @@
             // 
             // AnaSayfa
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(937, 476);
+            this.ClientSize = new System.Drawing.Size(1249, 586);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -115,6 +123,7 @@
             this.Controls.Add(this.kartSayisiComboBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AnaSayfa";
             this.Text = "AnaSayfa";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AnaSayfa_FormClosing);

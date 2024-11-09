@@ -1,116 +1,128 @@
-﻿using ProLab2SavasOyunu.Core.Interfaces;
+﻿using ProLab2SavasOyunu.Models.Cards;
 using ProLab2SavasOyunu.Models.Oyuncular;
 using ProLab2SavasOyunu.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ProLab2SavasOyunu.Controllers
 {
     public class OyunController
     {
-        private readonly SavasService _savasService;
-        private readonly KartDagitimService _kartDagitimService;
-        private readonly PuanHesaplamaService _puanHesaplamaService;
-        private readonly SavasLogger _logger = new SavasLogger();  // Loglayıcı örneği
-        private Oyuncu _kullanici;
-        private Oyuncu _bilgisayar;
-        private int _toplamHamleSayisi = 5;
-        private int _guncelHamle = 0;
+        private readonly PuanHesaplamaService puanHesaplamaService;
+        private readonly SavasLogger logger;
 
-        public OyunController()
+        public Oyuncu Kullanici { get; private set; }
+        public Oyuncu Bilgisayar { get; private set; }
+        public int ToplamTurSayisi { get; private set; }
+        public int GuncelTur { get; private set; } = 1;
+
+        public OyunController(Oyuncu kullanici, Oyuncu bilgisayar, int toplamTur)
         {
-            _savasService = new SavasService();
-            _kartDagitimService = new KartDagitimService();
-            _puanHesaplamaService = new PuanHesaplamaService();
+            Kullanici = kullanici;
+            Bilgisayar = bilgisayar;
+            ToplamTurSayisi = toplamTur;
+            puanHesaplamaService = new PuanHesaplamaService();
+            logger = new SavasLogger();
         }
 
-        public void OyunBaslat()
+        public void SavasBaslat(List<SavasAraclari> kullaniciKartlari, List<SavasAraclari> bilgisayarKartlari)
         {
-            // Oyuncuları oluştur
-            _kullanici = new Oyuncu(1, "Kullanıcı");
-            _bilgisayar = new Oyuncu(2, "Bilgisayar");
-
-            // Başlangıç kartlarını dağıt
-            _kullanici.KartListesi = _kartDagitimService.KartlariDagit(6,_bilgisayar.SeviyePuani);
-            _bilgisayar.KartListesi = _kartDagitimService.KartlariDagit(6,_kullanici.SeviyePuani);
-
-            // Oyun döngüsü
-            while (_guncelHamle < _toplamHamleSayisi && !OyunBittiMi())
+            if (kullaniciKartlari.Count != 3 || bilgisayarKartlari.Count != 3)
             {
-                _guncelHamle++;
-                Console.WriteLine($"Hamle {_guncelHamle}");
-
-                // Kart seçimleri
-                var kullaniciKartlari = _kullanici.KartSec();
-                var bilgisayarKartlari = _bilgisayar.KartSec();
-
-                // Savaş ve log ekleme
-                for (int i = 0; i < kullaniciKartlari.Count; i++)
-                {
-                    var kart1 = kullaniciKartlari[i];
-                    var kart2 = bilgisayarKartlari[i];
-
-                    int saldiri1 = _savasService.SaldiriHesapla(kart1, kart2);
-                    int saldiri2 = _savasService.SaldiriHesapla(kart2, kart1);
-
-                    _savasService.SaldiriUygula(kart1, kart2);
-                    _savasService.SaldiriUygula(kart2, kart1);
-
-                    // Kullanıcının saldırı logu
-                    _logger.LogEkle(new SavasLog
-                    {
-                        HamleYapan = _kullanici.OyuncuAdi,
-                        Hedef = _bilgisayar.OyuncuAdi,
-                        VurulanHasar = saldiri1,
-                        KazanilanPuan = kart1.Dayaniklilik <= 0 ? 10 : 0,
-                        HamleZamani = DateTime.Now
-                    });
-
-                    // Bilgisayarın saldırı logu
-                    _logger.LogEkle(new SavasLog
-                    {
-                        HamleYapan = _bilgisayar.OyuncuAdi,
-                        Hedef = _kullanici.OyuncuAdi,
-                        VurulanHasar = saldiri2,
-                        KazanilanPuan = kart2.Dayaniklilik <= 0 ? 10 : 0,
-                        HamleZamani = DateTime.Now
-                    });
-                }
-
-                // Yeni kart dağıtımı
-                _kartDagitimService.YeniKartEkle(_kullanici.SeviyePuani);
-                _kartDagitimService.YeniKartEkle(_bilgisayar.SeviyePuani);
-
-                _kullanici.KartEkle(_kartDagitimService.KartlariDagit(1,_kullanici.SeviyePuani)[0]);
-                _bilgisayar.KartEkle(_kartDagitimService.KartlariDagit(1,_bilgisayar.SeviyePuani)[0]);
-
-                // Skorları göster
-                _kullanici.SkorGoster();
-                _bilgisayar.SkorGoster();
+                MessageBox.Show("Kart seçimleri hatalı. 3 kart seçmelisiniz.");
+                return;
             }
 
-            // Oyun sonucu ve logları yazdırma
-            OyunSonucu();
-            _logger.LoglariYazdir(); // Savaş sonunda tüm logları yazdır
+            // Tur loglarını tutmak için
+            List<string> turLoglari = new List<string>();
+
+            // Her iki oyuncunun seçtiği kartları sırasıyla karşılaştırıyoruz
+            for (int i = 0; i < 3; i++)
+            {
+                var kullaniciKart = kullaniciKartlari[i];
+                var bilgisayarKart = bilgisayarKartlari[i];
+
+                // Karşılıklı saldırılar
+                kullaniciKart.SaldiriUygula(bilgisayarKart);
+                bilgisayarKart.SaldiriUygula(kullaniciKart);
+
+                // Puan hesaplama
+                puanHesaplamaService.SkorHesapla(Kullanici, Bilgisayar, kullaniciKart, bilgisayarKart);
+
+                // Loglama
+                string kullaniciLog = $"{Kullanici.OyuncuAdi} {kullaniciKart.AltSinif} ile {Bilgisayar.OyuncuAdi} {bilgisayarKart.AltSinif} kartına saldırdı. Vurulan Hasar: {kullaniciKart.Vurus}";
+                string bilgisayarLog = $"{Bilgisayar.OyuncuAdi} {bilgisayarKart.AltSinif} ile {Kullanici.OyuncuAdi} {kullaniciKart.AltSinif} kartına saldırdı. Vurulan Hasar: {bilgisayarKart.Vurus}";
+
+                turLoglari.Add(kullaniciLog);
+                turLoglari.Add(bilgisayarLog);
+
+                // Logger'a ekleme
+                logger.LogEkle(new SavasLog
+                {
+                    HamleYapan = Kullanici.OyuncuAdi,
+                    Hedef = Bilgisayar.OyuncuAdi,
+                    VurulanHasar = kullaniciKart.Vurus,
+                    KazanilanPuan = kullaniciKart.Dayaniklilik <= 0 ? 10 : 0,
+                    HamleZamani = DateTime.Now
+                });
+
+                logger.LogEkle(new SavasLog
+                {
+                    HamleYapan = Bilgisayar.OyuncuAdi,
+                    Hedef = Kullanici.OyuncuAdi,
+                    VurulanHasar = bilgisayarKart.Vurus,
+                    KazanilanPuan = bilgisayarKart.Dayaniklilik <= 0 ? 10 : 0,
+                    HamleZamani = DateTime.Now
+                });
+            }
+
+            GuncelTur++;
+
+            // Tur loglarını ekranda gösterme
+            string turLoguMesaji = $"Tur {GuncelTur - 1} Sonuçları:\n";
+            turLoguMesaji += string.Join("\n", turLoglari);
+            MessageBox.Show(turLoguMesaji);
+
+            if (GuncelTur > ToplamTurSayisi)
+            {
+                OyunSonucu();
+            }
+            else
+            {
+                // Bir sonraki tura geçebilirsiniz mesajını kaldırıyoruz çünkü tur loglarını zaten gösterdik
+            }
         }
 
-        private bool OyunBittiMi()
-        {
-            return _kullanici.KartListesi.Count == 0 || _bilgisayar.KartListesi.Count == 0;
-        }
 
         private void OyunSonucu()
         {
-            if (_kullanici.Skor > _bilgisayar.Skor)
-                MessageBox.Show("Oyunu Kullanıcı Kazandı!");
-            else if (_bilgisayar.Skor > _kullanici.Skor)
-                MessageBox.Show("Oyunu Bilgisayar Kazandı!");
+            string mesaj;
+            if (Kullanici.Skor > Bilgisayar.Skor)
+                mesaj = "Oyunu Kullanıcı Kazandı!";
+            else if (Bilgisayar.Skor > Kullanici.Skor)
+                mesaj = "Oyunu Bilgisayar Kazandı!";
             else
-                MessageBox.Show("Oyun Berabere!");
+                mesaj = "Oyun Berabere!";
+
+            // Tüm logları alıyoruz
+            List<SavasLog> tumLoglar = logger.LoglariAl();
+
+            // Logları formatlıyoruz
+            string tumLogMesaji = "Savaş Logları:\n";
+            foreach (var log in tumLoglar)
+            {
+                tumLogMesaji += $"{log.HamleZamani}: {log.HamleYapan} -> {log.Hedef}, Hasar: {log.VurulanHasar}, Kazanılan Puan: {log.KazanilanPuan}\n";
+            }
+
+            // Sonucu ve logları gösteriyoruz
+            MessageBox.Show($"{mesaj}\n\n{tumLogMesaji}");
+        }
+
+
+        public void LoglariGoster()
+        {
+            logger.LoglariYazdir();
         }
     }
 }

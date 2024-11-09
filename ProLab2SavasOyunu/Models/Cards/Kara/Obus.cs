@@ -1,11 +1,8 @@
-﻿using ProLab2SavasOyunu.Properties;
+﻿using ProLab2SavasOyunu.Core.Enums;
+using ProLab2SavasOyunu.Properties;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProLab2SavasOyunu.Models.Cards.Kara
 {
@@ -26,17 +23,24 @@ namespace ProLab2SavasOyunu.Models.Cards.Kara
                 }
             }
         }
-
         public Obus() : base() { }
 
-        public override bool AvantajVarMi(SavasAraclari hedef)
+        public Obus(int seviyePuani = 0) : base(seviyePuani) { }
+
+        public override void DurumGuncelle(int hasar)
         {
-            throw new NotImplementedException();
+            Dayaniklilik -= hasar;
+            if (Dayaniklilik <= 0)
+            {
+                Dayaniklilik = 0; 
+                Console.WriteLine($"{AltSinif} aracı devre dışı kaldı!");
+            }
         }
 
         public override int GetVurusAvantaji(SavasAraclari hedef)
         {
-            throw new NotImplementedException();
+            // Kara araçlarında deniz vuruş avantajı
+            return hedef.Sinif == KartTipi.Deniz ? 5 : 0;
         }
     }
 }

@@ -5,8 +5,8 @@ namespace ProLab2SavasOyunu
 {
     public partial class AnaSayfa : Form
     {
-        public int KartSayisi { get; private set; } = 6;  // Default kart sayısı
-        public int TurSayisi { get; private set; } = 5;   // Default tur sayısı
+        public int KartSayisi { get; private set; } = 6;  
+        public int TurSayisi { get; private set; } = 5;   
 
         public AnaSayfa()
         {
@@ -16,12 +16,12 @@ namespace ProLab2SavasOyunu
         private void AnaSayfa_Load(object sender, EventArgs e)
         {
             // Kart Sayısı ComboBox ayarları
-            kartSayisiComboBox.Items.AddRange(new object[] { 2, 4, 6, 8, 10 });
-            kartSayisiComboBox.SelectedItem = KartSayisi; // Default değer 6
+            kartSayisiComboBox.Items.AddRange(new object[] { 1,2,3,4,5,6,7,8,9 });
+            kartSayisiComboBox.SelectedItem = KartSayisi; 
 
             // Tur Sayısı ComboBox ayarları
-            turSayisiComboBox.Items.AddRange(new object[] { 3, 5, 7, 10 });
-            turSayisiComboBox.SelectedItem = TurSayisi; // Default değer 5
+            turSayisiComboBox.Items.AddRange(new object[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
+            turSayisiComboBox.SelectedItem = TurSayisi; 
         }
 
       
@@ -33,11 +33,17 @@ namespace ProLab2SavasOyunu
             Form1 oyunFormu = new Form1(KartSayisi, TurSayisi);
             oyunFormu.Show();
             this.Hide();
+            
         }
 
         private void AnaSayfa_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void kartSayisiComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

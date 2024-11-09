@@ -1,7 +1,7 @@
-﻿using ProLab2SavasOyunu.Models.Cards.Deniz;
+﻿using ProLab2SavasOyunu.Models.Cards;
+using ProLab2SavasOyunu.Models.Cards.Deniz;
 using ProLab2SavasOyunu.Models.Cards.Hava;
 using ProLab2SavasOyunu.Models.Cards.Kara;
-using ProLab2SavasOyunu.Models.Cards;
 using System;
 using System.Collections.Generic;
 
@@ -9,70 +9,54 @@ namespace ProLab2SavasOyunu.Services
 {
     public class KartDagitimService
     {
-        private readonly Random _random;
-        private List<SavasAraclari> _kartHavuzu;
+        private readonly Random _random = new Random();
+        private List<Type> _kartTipleri;
 
         public KartDagitimService()
         {
-            _random = new Random();
-            _kartHavuzu = new List<SavasAraclari>(); 
+            _kartTipleri = new List<Type>();
         }
 
-        private void KartHavuzunuOlustur(int oyuncuSeviyesi)
+        private void KartHavuzunuOlustur(int seviyePuani)
         {
-            // Seviye bazlı kart havuzunu oluşturuyoruz.
-            _kartHavuzu.Clear(); // Kart havuzunu her çağrıda temizliyoruz.
+            _kartTipleri.Clear();
 
-            if (oyuncuSeviyesi >= 20)
+            // Başlangıçta seçilebilen kartlar
+            _kartTipleri.Add(typeof(Ucak));
+            _kartTipleri.Add(typeof(Obus));
+            _kartTipleri.Add(typeof(Firkateyn));
+
+            // Seviye puanı 20 veya daha fazla ise açılan kartlar
+            if (seviyePuani >= 20)
             {
-                // Oyuncunun seviyesi 20 veya daha fazlaysa güçlü kartları da ekliyoruz
-                _kartHavuzu.AddRange(new List<SavasAraclari>
-                {
-                    new Ucak(), new Ucak(), new Ucak(),
-                    new Obus(), new Obus(), new Obus(),
-                    new Firkateyn(), new Firkateyn(), new Firkateyn(),
-                    new Siha(), new KFS(), new Sida()
-                });
-            }
-            else
-            {
-                // Seviye 20'den düşükse sadece temel kartlar havuza eklenir
-                _kartHavuzu.AddRange(new List<SavasAraclari>
-                {
-                    new Ucak(), new Ucak(), new Ucak(),
-                    new Obus(), new Obus(), new Obus(),
-                    new Firkateyn(), new Firkateyn(), new Firkateyn()
-                });
+                _kartTipleri.Add(typeof(Siha));
+                _kartTipleri.Add(typeof(KFS));
+                _kartTipleri.Add(typeof(Sida));
             }
         }
 
-        public List<SavasAraclari> KartlariDagit(int adet, int oyuncuSeviyesi)
+        public List<SavasAraclari> KartlariDagit(int adet, int seviyePuani)
         {
-            // Seviye bazlı kart havuzunu oluşturuyoruz.
-            KartHavuzunuOlustur(oyuncuSeviyesi);
+            KartHavuzunuOlustur(seviyePuani);
+            var dagitilanKartlar = new List<SavasAraclari>();
 
-            var dagitilacakKartlar = new List<SavasAraclari>();
-
-            // Kullanıcının belirttiği sayı kadar rastgele kart seçiyoruz
-            for (int i = 0; i < adet && _kartHavuzu.Count > 0; i++)
+            for (int i = 0; i < adet; i++)
             {
-                int index = _random.Next(_kartHavuzu.Count);
-                dagitilacakKartlar.Add(_kartHavuzu[index]);
-                _kartHavuzu.RemoveAt(index); 
+                int index = _random.Next(_kartTipleri.Count);
+                var kart = (SavasAraclari)Activator.CreateInstance(_kartTipleri[index]);
+                dagitilanKartlar.Add(kart);
             }
 
-            return dagitilacakKartlar;
+            return dagitilanKartlar;
         }
 
-        public void YeniKartEkle(int oyuncuSeviyesi)
+        // Her turda oyunculara yeni kart ekleyen metot
+        public SavasAraclari YeniKartVer(int seviyePuani)
         {
-            if (oyuncuSeviyesi >= 20)
-            {
-                
-                _kartHavuzu.Add(new Siha());
-                _kartHavuzu.Add(new KFS());
-                _kartHavuzu.Add(new Sida());
-            }
+            KartHavuzunuOlustur(seviyePuani);
+            int index = _random.Next(_kartTipleri.Count);
+            var kart = (SavasAraclari)Activator.CreateInstance(_kartTipleri[index]);
+            return kart;
         }
     }
 }

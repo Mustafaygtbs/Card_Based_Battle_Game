@@ -13,64 +13,307 @@ namespace ProLab2SavasOyunu
     {
         private int _kartSayisi;
         private int _turSayisi;
-        private int guncelTur = 1; 
         private Oyuncu bilgisayar;
         private Oyuncu oyuncu;
+        private KartDagitimService kartDagitimService;
+        private OyunController oyunController;
+        private List<SavasAraclari> kullaniciSecilenKartlar;
+        private List<SavasAraclari> bilgisayarSecilenKartlar;
 
         public Form1(int kartSayisi, int turSayisi)
         {
             InitializeComponent();
             _kartSayisi = kartSayisi;
             _turSayisi = turSayisi;
+            kartDagitimService = new KartDagitimService();
+            kullaniciSecilenKartlar = new List<SavasAraclari>();
+            bilgisayarSecilenKartlar = new List<SavasAraclari>();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
-
-            // Örnek kart listeleri oluşturuluyor
             bilgisayar = new Oyuncu(1, "Bilgisayar");
             oyuncu = new Oyuncu(2, "Kullanıcı");
 
-            // Bilgisayar ve oyuncuya kartlar dağıtılıyor
-            KartDagitimService kartDagitimService = new KartDagitimService();
-            bilgisayar.KartListesi = kartDagitimService.KartlariDagit(_kartSayisi, bilgisayar.Skor);
-            oyuncu.KartListesi = kartDagitimService.KartlariDagit(_kartSayisi, oyuncu.Skor);
+            // Kartlar dağıtılıyor
+            bilgisayar.KartListesi = kartDagitimService.KartlariDagit(_kartSayisi, bilgisayar.SeviyePuani);
+            oyuncu.KartListesi = kartDagitimService.KartlariDagit(_kartSayisi, oyuncu.SeviyePuani);
+
+            // OyunController oluşturuluyor
+            oyunController = new OyunController(oyuncu, bilgisayar, _turSayisi);
+
+            MessageBox.Show("Oyun başladı!");
 
             BilgisayarKartlariniGoster();
             OyuncuKartlariniGoster();
+
+            
+            btnSavasBaslat.Enabled = false;
         }
 
-        // Yeni bir tur başlatan fonksiyon
-        private void YeniTurBaslat()
+        private void KartSecildi(object sender, EventArgs e)
         {
-            if (guncelTur <= _turSayisi)
+            var kartControl = sender as KartControl;
+            if (kartControl == null)
+                return;
+
+            var kart = kartControl.Kart;
+
+            if (kartControl.IsSelected)
             {
-                MessageBox.Show($"Tur {guncelTur} başlıyor!");
-                // Savaş işlemlerini başlatmak için gerekli fonksiyonları burada çağırabilirsiniz.
-                guncelTur++;
+                // Kart seçildi
+                if (!kullaniciSecilenKartlar.Contains(kart))
+                {
+                    // Kullanılmamış kartları kontrol ediyoruz
+                    var kullanilmayanKartlar = oyuncu.KullanilmayanKartlariGetir();
+
+                    if (!kullanilmayanKartlar.Contains(kart))
+                    {
+                        MessageBox.Show("Bu kartı şu anda tekrar kullanamazsınız. Tüm kartları en az bir kez kullanmalısınız.");
+                        kartControl.TemizleSecim();
+                        return;
+                    }
+
+                    if (kullaniciSecilenKartlar.Count < 3)
+                    {
+                        kullaniciSecilenKartlar.Add(kart);
+                    }
+                    else
+                    {
+                        MessageBox.Show("En fazla 3 kart seçebilirsiniz!");
+                        kartControl.TemizleSecim();
+                        return;
+                    }
+                }
             }
             else
             {
-                OyunBitti();
+                // Kart seçimi kaldırıldı
+                if (kullaniciSecilenKartlar.Contains(kart))
+                {
+                    kullaniciSecilenKartlar.Remove(kart);
+                }
+            }
+
+            // 3 kart seçildiğinde savaşı başlat butonunu aktif ediyoruz
+            btnSavasBaslat.Enabled = kullaniciSecilenKartlar.Count == 3;
+        }
+
+
+
+
+        private void SavasBaslat()
+        {
+            try
+            {
+                // Bilgisayarın rastgele 3 kart seçmesi
+                bilgisayarSecilenKartlar = bilgisayar.KartSec(3);
+
+                // Seçilen kartları savaş alanında göster
+                SavasAlaniniGoster();
+
+                // OyunController üzerinden savaş başlat
+                oyunController.SavasBaslat(kullaniciSecilenKartlar, bilgisayarSecilenKartlar);
+
+                // Savaş sonrasında güncellemeler
+                SavasSonrasiGuncelle();
+
+                // Oyuncunun ve bilgisayarın elindeki kart sayısını kontrol ediyoruz
+                bool oyuncuDevamEdebilir = OyuncununKartlariniKontrolEt();
+                bool bilgisayarDevamEdebilir = BilgisayarinKartlariniKontrolEt();
+
+                if (!oyuncuDevamEdebilir || !bilgisayarDevamEdebilir)
+                {
+                    // Eğer herhangi bir oyuncunun kartı kalmadıysa, oyun biter
+                    OyunBitti();
+                    return;
+                }
+
+                // Tur sayısını kontrol et
+                if (oyunController.GuncelTur > _turSayisi)
+                {
+                    OyunBitti();
+                }
+                else
+                {
+                    MessageBox.Show($"Tur {oyunController.GuncelTur - 1} tamamlandı. Bir sonraki tura geçebilirsiniz.");
+
+                    // Arayüzü güncelliyoruz
+                    BilgisayarKartlariniGoster();
+                    OyuncuKartlariniGoster();
+
+                    btnSavasBaslat.Enabled = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Bir hata oluştu: {ex.Message}");
+            }
+        }
+
+        private bool OyuncununKartlariniKontrolEt()
+        {
+            // Oyuncunun elindeki kart sayısını kontrol ediyoruz
+            int mevcutKartSayisi = oyuncu.KartListesi.Count;
+
+            if (mevcutKartSayisi == 0)
+            {
+                // Oyuncunun kartı kalmadı, oyun biter
+                return false;
+            }
+            else if (mevcutKartSayisi == 1 || mevcutKartSayisi == 2)
+            {
+                int eklenecekKartSayisi = 3 - mevcutKartSayisi;
+
+                for (int i = 0; i < eklenecekKartSayisi; i++)
+                {
+                    oyuncu.KartEkle(kartDagitimService.YeniKartVer(oyuncu.SeviyePuani));
+                }
+            }
+
+            // Oyuncunun kartı var, oyun devam edebilir
+            return true;
+        }
+
+        private bool BilgisayarinKartlariniKontrolEt()
+        {
+            // Bilgisayarın elindeki kart sayısını kontrol ediyoruz
+            int mevcutKartSayisi = bilgisayar.KartListesi.Count;
+
+            if (mevcutKartSayisi == 0)
+            {
+                // Bilgisayarın kartı kalmadı, oyun biter
+                return false;
+            }
+            else if (mevcutKartSayisi == 1 || mevcutKartSayisi == 2)
+            {
+                int eklenecekKartSayisi = 3 - mevcutKartSayisi;
+
+                for (int i = 0; i < eklenecekKartSayisi; i++)
+                {
+                    bilgisayar.KartEkle(kartDagitimService.YeniKartVer(bilgisayar.SeviyePuani));
+                }
+            }
+
+            // Bilgisayarın kartı var, oyun devam edebilir
+            return true;
+        }
+
+
+        private void SavasAlaniniGoster()
+        {
+            savasAlaniFlowPanel.Controls.Clear();
+
+            // Kullanıcının seçtiği kartları göster
+            foreach (var kart in kullaniciSecilenKartlar)
+            {
+                var kartControl = new KartControl(kart)
+                {
+                    Size = new Size(180, 150)
+                };
+                savasAlaniFlowPanel.Controls.Add(kartControl);
+            }
+
+            // Bilgisayarın seçtiği kartları göster (kartları gizlemiyoruz)
+            foreach (var kart in bilgisayarSecilenKartlar)
+            {
+                var kartControl = new KartControl(kart)
+                {
+                    Size = new Size(180, 150)
+                };
+                // kartControl.GizleKart(); // Bu satırı kaldırıyoruz
+                savasAlaniFlowPanel.Controls.Add(kartControl);
+            }
+        }
+
+
+        private void SavasSonrasiGuncelle()
+        {
+            // Kullanıcı ve bilgisayar kartlarını güncelle
+            foreach (var kart in kullaniciSecilenKartlar)
+            {
+                kart.KullanildiMi = true;
+                oyuncu.KartListesi.Remove(kart);
+            }
+
+            foreach (var kart in bilgisayarSecilenKartlar)
+            {
+                kart.KullanildiMi = true;
+                bilgisayar.KartListesi.Remove(kart);
+            }
+
+            // Seçilen kartları temizle ve arayüzü güncelle
+            kullaniciSecilenKartlar.Clear();
+            bilgisayarSecilenKartlar.Clear();
+            TemizleSecimleri();
+            OyuncuKartlariniGoster();
+            BilgisayarKartlariniGoster();
+            
+
+
+            // Savaş alanını temizle
+            savasAlaniFlowPanel.Controls.Clear();
+        }
+
+        private void TemizleSecimleri()
+        {
+            foreach (var control in oyuncuKartlariFlowPanel.Controls)
+            {
+                if (control is KartControl kartControl)
+                {
+                    kartControl.TemizleSecim();
+                }
             }
         }
 
         private void OyunBitti()
         {
-            MessageBox.Show("Oyun Bitti! Skorları değerlendirin.");
-            // Oyun bittiğinde yapılacak diğer işlemler
+            string mesaj;
+
+            if (oyuncu.KartListesi.Count == 0 && bilgisayar.KartListesi.Count > 0)
+            {
+                mesaj = "Oyuncunun kartları bitti, oyun sona erdi. Bilgisayar kazandı!";
+            }
+            else if (bilgisayar.KartListesi.Count == 0 && oyuncu.KartListesi.Count > 0)
+            {
+                mesaj = "Bilgisayarın kartları bitti, oyun sona erdi. Oyuncu kazandı!";
+            }
+            else if (bilgisayar.KartListesi.Count == 0 && oyuncu.KartListesi.Count == 0)
+            {
+                mesaj = "Her iki oyuncunun da kartları bitti, oyun berabere!";
+            }
+            else
+            {
+                // Oyun normal tur sayısına ulaştıysa
+                if (oyunController.Kullanici.Skor > oyunController.Bilgisayar.Skor)
+                    mesaj = "Oyunu Kullanıcı Kazandı!";
+                else if (oyunController.Bilgisayar.Skor > oyunController.Kullanici.Skor)
+                    mesaj = "Oyunu Bilgisayar Kazandı!";
+                else
+                    mesaj = "Oyun Berabere!";
+            }
+
+            // Savaş loglarını gösteriyoruz
+            oyunController.LoglariGoster();
+
+            // Sonucu gösteriyoruz
+            MessageBox.Show(mesaj);
+
+            // Uygulamayı kapatıyoruz
+            this.Close();
         }
+
 
         private void BilgisayarKartlariniGoster()
         {
             bilgisayarKartlariFlowPanelA.Controls.Clear();
             foreach (var kart in bilgisayar.KartListesi)
             {
-                var kartControl = new KartControl(kart)
-                {
-                    Size = new Size(180, 150)
-                };
+                var kartControl = new KartControl(kart);
+                                            
+                // Bilgisayarın kartlarını gizliyoruz
+                kartControl.GizleKart();
                 bilgisayarKartlariFlowPanelA.Controls.Add(kartControl);
             }
         }
@@ -80,32 +323,29 @@ namespace ProLab2SavasOyunu
             oyuncuKartlariFlowPanel.Controls.Clear();
             foreach (var kart in oyuncu.KartListesi)
             {
-                var kartControl = new KartControl(kart)
-                {
-                    Size = new Size(180, 150)
-                };
+                var kartControl = new KartControl(kart);
+    
+                // Kart seçildiğinde olayı yakalıyoruz
+                kartControl.KartSecildi += KartSecildi;
                 oyuncuKartlariFlowPanel.Controls.Add(kartControl);
             }
         }
-
-        public void SavasAlaninaKartEkle(SavasAraclari oyuncuKart, SavasAraclari bilgisayarKart)
-        {
-            savasAlaniFlowPanel.Controls.Clear();
-            var oyuncuKartControl = new KartControl(oyuncuKart)
-            {
-                Size = new Size(180, 150)
-            };
-            var bilgisayarKartControl = new KartControl(bilgisayarKart)
-            {
-                Size = new Size(180, 150)
-            };
-            savasAlaniFlowPanel.Controls.Add(oyuncuKartControl);
-            savasAlaniFlowPanel.Controls.Add(bilgisayarKartControl);
-        }
+      
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void btnSavasBaslat_Click_1(object sender, EventArgs e)
+        {
+            if (kullaniciSecilenKartlar.Count != 3)
+            {
+                MessageBox.Show("Lütfen 3 kart seçin.");
+                return;
+            }
+
+            SavasBaslat();
         }
     }
 }

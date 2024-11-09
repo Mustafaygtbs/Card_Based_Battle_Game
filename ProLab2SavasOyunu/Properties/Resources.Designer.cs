@@ -113,9 +113,9 @@ namespace ProLab2SavasOyunu.Properties {
         /// <summary>
         ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
-        internal static byte[] tank {
+        internal static byte[] sida2 {
             get {
-                object obj = ResourceManager.GetObject("tank", resourceCulture);
+                object obj = ResourceManager.GetObject("sida2", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -123,9 +123,9 @@ namespace ProLab2SavasOyunu.Properties {
         /// <summary>
         ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
-        internal static byte[] Ucak {
+        internal static byte[] tank {
             get {
-                object obj = ResourceManager.GetObject("Ucak", resourceCulture);
+                object obj = ResourceManager.GetObject("tank", resourceCulture);
                 return ((byte[])(obj));
             }
         }
