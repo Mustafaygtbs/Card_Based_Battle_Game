@@ -35,6 +35,10 @@
             this.oyuncuKartlariFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.gbOyuncuKartlari = new System.Windows.Forms.GroupBox();
             this.btnSavasBaslat = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblBilgisayarSeviyePuani = new System.Windows.Forms.Label();
+            this.lblKullaniciSeviyePuani = new System.Windows.Forms.Label();
             this.gbBilgisayarKartlari.SuspendLayout();
             this.gbSavasAlani.SuspendLayout();
             this.gbOyuncuKartlari.SuspendLayout();
@@ -105,7 +109,7 @@
             // 
             // btnSavasBaslat
             // 
-            this.btnSavasBaslat.Location = new System.Drawing.Point(20, 161);
+            this.btnSavasBaslat.Location = new System.Drawing.Point(20, 52);
             this.btnSavasBaslat.Name = "btnSavasBaslat";
             this.btnSavasBaslat.Size = new System.Drawing.Size(86, 77);
             this.btnSavasBaslat.TabIndex = 3;
@@ -113,11 +117,51 @@
             this.btnSavasBaslat.UseVisualStyleBackColor = true;
             this.btnSavasBaslat.Click += new System.EventHandler(this.btnSavasBaslat_Click_1);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 158);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(119, 16);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Bilgisayar Puanları";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 271);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(107, 16);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Kullanıcı puanları";
+            // 
+            // lblBilgisayarSeviyePuani
+            // 
+            this.lblBilgisayarSeviyePuani.AutoSize = true;
+            this.lblBilgisayarSeviyePuani.Location = new System.Drawing.Point(12, 193);
+            this.lblBilgisayarSeviyePuani.Name = "lblBilgisayarSeviyePuani";
+            this.lblBilgisayarSeviyePuani.Size = new System.Drawing.Size(27, 16);
+            this.lblBilgisayarSeviyePuani.TabIndex = 6;
+            this.lblBilgisayarSeviyePuani.Text = "-----";
+            // 
+            // lblKullaniciSeviyePuani
+            // 
+            this.lblKullaniciSeviyePuani.AutoSize = true;
+            this.lblKullaniciSeviyePuani.Location = new System.Drawing.Point(12, 311);
+            this.lblKullaniciSeviyePuani.Name = "lblKullaniciSeviyePuani";
+            this.lblKullaniciSeviyePuani.Size = new System.Drawing.Size(35, 16);
+            this.lblKullaniciSeviyePuani.TabIndex = 7;
+            this.lblKullaniciSeviyePuani.Text = "-------";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2360, 1040);
+            this.ClientSize = new System.Drawing.Size(1924, 1040);
+            this.Controls.Add(this.lblKullaniciSeviyePuani);
+            this.Controls.Add(this.lblBilgisayarSeviyePuani);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnSavasBaslat);
             this.Controls.Add(this.gbOyuncuKartlari);
             this.Controls.Add(this.gbSavasAlani);
@@ -131,6 +175,7 @@
             this.gbSavasAlani.ResumeLayout(false);
             this.gbOyuncuKartlari.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -143,6 +188,10 @@
         private System.Windows.Forms.FlowLayoutPanel oyuncuKartlariFlowPanel;
         private System.Windows.Forms.GroupBox gbOyuncuKartlari;
         private System.Windows.Forms.Button btnSavasBaslat;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblBilgisayarSeviyePuani;
+        private System.Windows.Forms.Label lblKullaniciSeviyePuani;
     }
 }
 

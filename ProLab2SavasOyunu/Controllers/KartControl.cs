@@ -154,18 +154,13 @@ namespace ProLab2SavasOyunu.Controllers
         // Handle card click event
         private void KartControl_Click(object sender, EventArgs e)
         {
-            if (Kart.KullanildiMi)
-            {
-                MessageBox.Show("Bu kart daha önce kullanıldı!");
-                return;
-            }
-
             IsSelected = !IsSelected;
             this.BackColor = IsSelected ? Color.LightGreen : Color.PowderBlue;
 
-            // Raise the event to notify selection change
+            // Kart seçimi değiştiğinde olayı tetikle
             KartSecildi?.Invoke(this, EventArgs.Empty);
         }
+
 
         public void Sec()
         {
@@ -177,7 +172,15 @@ namespace ProLab2SavasOyunu.Controllers
         public void TemizleSecim()
         {
             IsSelected = false;
-            this.BackColor = Color.PowderBlue;
+            // Kartın kullanım durumuna göre arka planı ayarla
+            if (Kart.KullanildiMi)
+            {
+                this.BackColor = Color.LightCoral;
+            }
+            else
+            {
+                this.BackColor = Color.PowderBlue;
+            }
         }
 
         public void GizleKart()
@@ -202,20 +205,25 @@ namespace ProLab2SavasOyunu.Controllers
         {
             Kart = kart;
 
-            if (!kart.KullanildiMi)
-            {
-                kartGorsel.Image = kart.KartResmi;
-            }
-            else
-            {
-                kartGorsel.Image = null; // Remove image if the card has been used
-            }
+            kartGorsel.Image = kart.KartResmi;
 
             puanLabel.Text = $"Puan: {kart.SeviyePuani}";
             hasarLabel.Text = $"Hasar: {kart.Vurus}";
             dayaniklilikLabel.Text = $"Dayanıklılık: {kart.Dayaniklilik}";
             seviyePuaniLabel.Text = $"Seviye: {kart.SeviyePuani}";
             kartTuruLabel.Text = kart.GetType().Name;
+
+            // Kullanılmış kartların arka planını kırmızı yapalım
+            if (kart.KullanildiMi)
+            {
+                this.BackColor = Color.LightCoral; // Kırmızı tonlarında bir renk
+            }
+            else
+            {
+                this.BackColor = Color.PowderBlue; // Varsayılan renk
+            }
         }
+
+
     }
 }

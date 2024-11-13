@@ -7,20 +7,22 @@ namespace ProLab2SavasOyunu.Models.Cards
 {
     public abstract class SavasAraclari 
     {
-        public Guid Id { get; }  // Benzersiz kart kimliği
+        public Guid Id { get; }  
         public int SeviyePuani { get; set; }
         public abstract int Dayaniklilik { get; set; }
         public abstract int Vurus { get; set; }
         public abstract KartTipi Sinif { get; }
         public abstract string AltSinif { get; }
         public abstract Image KartResmi { get; }
-        public bool KullanildiMi { get; set; }  // Kartın kullanılıp kullanılmadığını takip eder
+        public bool KullanildiMi { get; set; }
+        public bool ElenmisMi { get; set; }
 
         public SavasAraclari(int seviyePuani = 0)
         {
             Id = Guid.NewGuid();  // Her kart için benzersiz bir ID oluşturulur
             SeviyePuani = seviyePuani;
             KullanildiMi = false;
+            ElenmisMi = false;
         }
 
         public void KartPuaniGoster()

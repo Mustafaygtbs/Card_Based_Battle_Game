@@ -44,37 +44,66 @@ namespace ProLab2SavasOyunu.Controllers
                 var bilgisayarKart = bilgisayarKartlari[i];
 
                 // Karşılıklı saldırılar
-                kullaniciKart.SaldiriUygula(bilgisayarKart);
-                bilgisayarKart.SaldiriUygula(kullaniciKart);
+                int kullaniciHasar = kullaniciKart.SaldiriHesapla(bilgisayarKart);
+                int bilgisayarHasar = bilgisayarKart.SaldiriHesapla(kullaniciKart);
+
+                bilgisayarKart.DurumGuncelle(kullaniciHasar);
+                kullaniciKart.DurumGuncelle(bilgisayarHasar);
 
                 // Puan hesaplama
                 puanHesaplamaService.SkorHesapla(Kullanici, Bilgisayar, kullaniciKart, bilgisayarKart);
 
+                // Vuruş avantajlarını hesapla
+                int kullaniciAvantaj = kullaniciKart.GetVurusAvantaji(bilgisayarKart);
+                int bilgisayarAvantaj = bilgisayarKart.GetVurusAvantaji(kullaniciKart);
+
                 // Loglama
-                string kullaniciLog = $"{Kullanici.OyuncuAdi} {kullaniciKart.AltSinif} ile {Bilgisayar.OyuncuAdi} {bilgisayarKart.AltSinif} kartına saldırdı. Vurulan Hasar: {kullaniciKart.Vurus}";
-                string bilgisayarLog = $"{Bilgisayar.OyuncuAdi} {bilgisayarKart.AltSinif} ile {Kullanici.OyuncuAdi} {kullaniciKart.AltSinif} kartına saldırdı. Vurulan Hasar: {bilgisayarKart.Vurus}";
+                string turNumarasi = (GuncelTur).ToString();
 
-                turLoglari.Add(kullaniciLog);
-                turLoglari.Add(bilgisayarLog);
-
-                // Logger'a ekleme
                 logger.LogEkle(new SavasLog
                 {
+                    HamleZamani = DateTime.Now,
+                    Tur = turNumarasi,
                     HamleYapan = Kullanici.OyuncuAdi,
+                    KullanilanKart = kullaniciKart.AltSinif,
                     Hedef = Bilgisayar.OyuncuAdi,
-                    VurulanHasar = kullaniciKart.Vurus,
-                    KazanilanPuan = kullaniciKart.Dayaniklilik <= 0 ? 10 : 0,
-                    HamleZamani = DateTime.Now
+                    HedefKart = bilgisayarKart.AltSinif,
+                    VurulanHasar = kullaniciHasar,
+                    Avantaj = kullaniciAvantaj,
+                    KazanilanPuan = kullaniciKart.Dayaniklilik <= 0 ? 10 : 0
                 });
 
                 logger.LogEkle(new SavasLog
                 {
+                    HamleZamani = DateTime.Now,
+                    Tur = turNumarasi,
                     HamleYapan = Bilgisayar.OyuncuAdi,
+                    KullanilanKart = bilgisayarKart.AltSinif,
                     Hedef = Kullanici.OyuncuAdi,
-                    VurulanHasar = bilgisayarKart.Vurus,
-                    KazanilanPuan = bilgisayarKart.Dayaniklilik <= 0 ? 10 : 0,
-                    HamleZamani = DateTime.Now
+                    HedefKart = kullaniciKart.AltSinif,
+                    VurulanHasar = bilgisayarHasar,
+                    Avantaj = bilgisayarAvantaj,
+                    KazanilanPuan = bilgisayarKart.Dayaniklilik <= 0 ? 10 : 0
                 });
+
+                // Kartların durumunu kontrol et ve logla
+                if (bilgisayarKart.Dayaniklilik <= 0)
+                {
+                    turLoglari.Add($"{Bilgisayar.OyuncuAdi}'nın {bilgisayarKart.AltSinif} kartı yok edildi!");
+                }
+                else
+                {
+                    turLoglari.Add($"{Bilgisayar.OyuncuAdi}'nın {bilgisayarKart.AltSinif} kartının kalan dayanıklılığı: {bilgisayarKart.Dayaniklilik}");
+                }
+
+                if (kullaniciKart.Dayaniklilik <= 0)
+                {
+                    turLoglari.Add($"{Kullanici.OyuncuAdi}'nın {kullaniciKart.AltSinif} kartı yok edildi!");
+                }
+                else
+                {
+                    turLoglari.Add($"{Kullanici.OyuncuAdi}'nın {kullaniciKart.AltSinif} kartının kalan dayanıklılığı: {kullaniciKart.Dayaniklilik}");
+                }
             }
 
             GuncelTur++;
@@ -88,11 +117,8 @@ namespace ProLab2SavasOyunu.Controllers
             {
                 OyunSonucu();
             }
-            else
-            {
-                // Bir sonraki tura geçebilirsiniz mesajını kaldırıyoruz çünkü tur loglarını zaten gösterdik
-            }
         }
+
 
 
         private void OyunSonucu()
@@ -108,16 +134,14 @@ namespace ProLab2SavasOyunu.Controllers
             // Tüm logları alıyoruz
             List<SavasLog> tumLoglar = logger.LoglariAl();
 
-            // Logları formatlıyoruz
-            string tumLogMesaji = "Savaş Logları:\n";
-            foreach (var log in tumLoglar)
-            {
-                tumLogMesaji += $"{log.HamleZamani}: {log.HamleYapan} -> {log.Hedef}, Hasar: {log.VurulanHasar}, Kazanılan Puan: {log.KazanilanPuan}\n";
-            }
+            // Sonucu gösteriyoruz
+            MessageBox.Show(mesaj);
 
-            // Sonucu ve logları gösteriyoruz
-            MessageBox.Show($"{mesaj}\n\n{tumLogMesaji}");
+            // Logları yeni bir formda gösteriyoruz
+            LogForm logForm = new LogForm(tumLoglar);
+            logForm.ShowDialog();
         }
+
 
 
         public void LoglariGoster()
