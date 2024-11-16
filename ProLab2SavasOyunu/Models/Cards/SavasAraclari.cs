@@ -19,7 +19,7 @@ namespace ProLab2SavasOyunu.Models.Cards
 
         public SavasAraclari(int seviyePuani = 0)
         {
-            Id = Guid.NewGuid();  // Her kart için benzersiz bir ID oluşturulur
+            Id = Guid.NewGuid();  
             SeviyePuani = seviyePuani;
             KullanildiMi = false;
             ElenmisMi = false;

@@ -38,14 +38,12 @@ namespace ProLab2SavasOyunu.Models.Oyuncular
         public List<SavasAraclari> KartSec(int adet)
         {
             var secilenKartlar = new List<SavasAraclari>();
-
-            // Tüm kartların kullanılıp kullanılmadığını kontrol edin
+      
             if (TumKartlarKullanildiMi())
             {
                 KartlariSifirla();
             }
 
-            // Kullanılabilir kartları alıyoruz
             var kullanilabilirKartlar = KullanilmayanKartlariGetir();
 
             // Rastgele kart seçimi
@@ -72,7 +70,6 @@ namespace ProLab2SavasOyunu.Models.Oyuncular
             return KartListesi.All(k => k.KullanildiMi);
         }
 
-        // Kartları sıfırla (tüm kartları kullanılmamış olarak işaretle)
         public void KartlariSifirla()
         {
             foreach (var kart in KartListesi)
@@ -80,8 +77,6 @@ namespace ProLab2SavasOyunu.Models.Oyuncular
                 kart.KullanildiMi = false;
             }
         }
-
-
 
         public void KartEkle(SavasAraclari kart)
         {

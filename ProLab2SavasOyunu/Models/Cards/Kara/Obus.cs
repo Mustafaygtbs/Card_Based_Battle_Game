@@ -39,8 +39,7 @@ namespace ProLab2SavasOyunu.Models.Cards.Kara
 
         public override int GetVurusAvantaji(SavasAraclari hedef)
         {
-            // Kara araçlarında deniz vuruş avantajı
-            return hedef.Sinif == KartTipi.Deniz ? 5 : 0;
+            return hedef.Sinif == KartTipi.Deniz ? DenizVurusAvantaji : 0;
         }
     }
 }

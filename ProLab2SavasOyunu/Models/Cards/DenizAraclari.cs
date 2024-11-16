@@ -16,7 +16,7 @@ namespace ProLab2SavasOyunu.Models.Cards
 
         public override void DurumGuncelle(int hasar)
         {
-            // Deniz aracına özel güncelleme işlemleri
+            
         }
     }
 }

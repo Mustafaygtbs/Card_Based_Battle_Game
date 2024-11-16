@@ -21,12 +21,12 @@ namespace ProLab2SavasOyunu.Services
         {
             _kartTipleri.Clear();
 
-            // Başlangıçta seçilebilen kartlar
+            
             _kartTipleri.Add(typeof(Ucak));
             _kartTipleri.Add(typeof(Obus));
             _kartTipleri.Add(typeof(Firkateyn));
 
-            // Seviye puanı 20 veya daha fazla ise açılan kartlar
+          
             if (seviyePuani >= 20)
             {
                 _kartTipleri.Add(typeof(Siha));
@@ -50,7 +50,7 @@ namespace ProLab2SavasOyunu.Services
             return dagitilanKartlar;
         }
 
-        // Her turda oyunculara yeni kart ekleyen metot
+        
         public SavasAraclari YeniKartVer(int seviyePuani)
         {
             KartHavuzunuOlustur(seviyePuani);

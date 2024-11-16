@@ -32,7 +32,7 @@ namespace ProLab2SavasOyunu.Models.Cards.Hava
             Dayaniklilik -= hasar;
             if (Dayaniklilik <= 0)
             {
-                Dayaniklilik = 0; // Dayanıklılık sıfırın altına düşemez
+                Dayaniklilik = 0; 
                 Console.WriteLine($"{AltSinif} aracı devre dışı kaldı!");
             }
         }   
