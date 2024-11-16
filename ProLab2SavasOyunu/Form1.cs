@@ -221,20 +221,14 @@ namespace ProLab2SavasOyunu
             // Kullanıcının seçtiği kartları göster
             foreach (var kart in kullaniciSecilenKartlar)
             {
-                var kartControl = new KartControl(kart)
-                {
-                    Size = new Size(180, 150)
-                };
+                var kartControl = new KartControl(kart);
                 savasAlaniFlowPanel.Controls.Add(kartControl);
             }
 
             // Bilgisayarın seçtiği kartları göster (kartları gizlemiyoruz)
             foreach (var kart in bilgisayarSecilenKartlar)
             {
-                var kartControl = new KartControl(kart)
-                {
-                    Size = new Size(180, 150)
-                };
+                var kartControl = new KartControl(kart);
                 // Burada GizleKart() metodunu çağırmıyoruz
                 savasAlaniFlowPanel.Controls.Add(kartControl);
             }

@@ -16,7 +16,7 @@ namespace ProLab2SavasOyunu
         private void AnaSayfa_Load(object sender, EventArgs e)
         {
             // Kart Sayısı ComboBox ayarları
-            kartSayisiComboBox.Items.AddRange(new object[] { 1,2,3,4,5,6,7,8,9 });
+            kartSayisiComboBox.Items.AddRange(new object[] { 1,2,3,4,5,6,7,8,9,18 });
             kartSayisiComboBox.SelectedItem = KartSayisi; 
 
             // Tur Sayısı ComboBox ayarları

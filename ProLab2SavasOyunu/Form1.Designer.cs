@@ -46,72 +46,73 @@
             // 
             // bilgisayarKartlariFlowPanelA
             // 
+            this.bilgisayarKartlariFlowPanelA.AutoScroll = true;
             this.bilgisayarKartlariFlowPanelA.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bilgisayarKartlariFlowPanelA.Location = new System.Drawing.Point(4, 19);
-            this.bilgisayarKartlariFlowPanelA.Margin = new System.Windows.Forms.Padding(4);
+            this.bilgisayarKartlariFlowPanelA.Location = new System.Drawing.Point(3, 16);
+            this.bilgisayarKartlariFlowPanelA.Margin = new System.Windows.Forms.Padding(5);
             this.bilgisayarKartlariFlowPanelA.Name = "bilgisayarKartlariFlowPanelA";
-            this.bilgisayarKartlariFlowPanelA.Size = new System.Drawing.Size(2009, 349);
+            this.bilgisayarKartlariFlowPanelA.Padding = new System.Windows.Forms.Padding(5);
+            this.bilgisayarKartlariFlowPanelA.Size = new System.Drawing.Size(814, 283);
             this.bilgisayarKartlariFlowPanelA.TabIndex = 0;
             // 
             // gbBilgisayarKartlari
             // 
             this.gbBilgisayarKartlari.Controls.Add(this.bilgisayarKartlariFlowPanelA);
-            this.gbBilgisayarKartlari.Location = new System.Drawing.Point(139, 33);
-            this.gbBilgisayarKartlari.Margin = new System.Windows.Forms.Padding(4);
+            this.gbBilgisayarKartlari.Location = new System.Drawing.Point(202, 26);
             this.gbBilgisayarKartlari.Name = "gbBilgisayarKartlari";
-            this.gbBilgisayarKartlari.Padding = new System.Windows.Forms.Padding(4);
-            this.gbBilgisayarKartlari.Size = new System.Drawing.Size(2017, 372);
+            this.gbBilgisayarKartlari.Size = new System.Drawing.Size(820, 302);
             this.gbBilgisayarKartlari.TabIndex = 0;
             this.gbBilgisayarKartlari.TabStop = false;
             this.gbBilgisayarKartlari.Text = "Bilgisayar Kartları";
             // 
             // savasAlaniFlowPanel
             // 
+            this.savasAlaniFlowPanel.AutoScroll = true;
             this.savasAlaniFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.savasAlaniFlowPanel.Location = new System.Drawing.Point(4, 19);
-            this.savasAlaniFlowPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.savasAlaniFlowPanel.Location = new System.Drawing.Point(3, 16);
+            this.savasAlaniFlowPanel.Margin = new System.Windows.Forms.Padding(5);
             this.savasAlaniFlowPanel.Name = "savasAlaniFlowPanel";
-            this.savasAlaniFlowPanel.Size = new System.Drawing.Size(2001, 229);
+            this.savasAlaniFlowPanel.Padding = new System.Windows.Forms.Padding(5);
+            this.savasAlaniFlowPanel.Size = new System.Drawing.Size(1501, 186);
             this.savasAlaniFlowPanel.TabIndex = 1;
             // 
             // gbSavasAlani
             // 
             this.gbSavasAlani.Controls.Add(this.savasAlaniFlowPanel);
-            this.gbSavasAlani.Location = new System.Drawing.Point(16, 394);
-            this.gbSavasAlani.Margin = new System.Windows.Forms.Padding(4);
+            this.gbSavasAlani.Location = new System.Drawing.Point(12, 320);
             this.gbSavasAlani.Name = "gbSavasAlani";
-            this.gbSavasAlani.Padding = new System.Windows.Forms.Padding(4);
-            this.gbSavasAlani.Size = new System.Drawing.Size(2009, 252);
+            this.gbSavasAlani.Size = new System.Drawing.Size(1507, 205);
             this.gbSavasAlani.TabIndex = 1;
             this.gbSavasAlani.TabStop = false;
             this.gbSavasAlani.Text = "Seçilen Kartlar";
             // 
             // oyuncuKartlariFlowPanel
             // 
+            this.oyuncuKartlariFlowPanel.AutoScroll = true;
             this.oyuncuKartlariFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.oyuncuKartlariFlowPanel.Location = new System.Drawing.Point(4, 19);
-            this.oyuncuKartlariFlowPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.oyuncuKartlariFlowPanel.Location = new System.Drawing.Point(3, 16);
+            this.oyuncuKartlariFlowPanel.Margin = new System.Windows.Forms.Padding(5);
             this.oyuncuKartlariFlowPanel.Name = "oyuncuKartlariFlowPanel";
-            this.oyuncuKartlariFlowPanel.Size = new System.Drawing.Size(2013, 349);
+            this.oyuncuKartlariFlowPanel.Padding = new System.Windows.Forms.Padding(5);
+            this.oyuncuKartlariFlowPanel.Size = new System.Drawing.Size(1510, 283);
             this.oyuncuKartlariFlowPanel.TabIndex = 1;
             // 
             // gbOyuncuKartlari
             // 
             this.gbOyuncuKartlari.Controls.Add(this.oyuncuKartlariFlowPanel);
-            this.gbOyuncuKartlari.Location = new System.Drawing.Point(16, 654);
-            this.gbOyuncuKartlari.Margin = new System.Windows.Forms.Padding(4);
+            this.gbOyuncuKartlari.Location = new System.Drawing.Point(12, 531);
             this.gbOyuncuKartlari.Name = "gbOyuncuKartlari";
-            this.gbOyuncuKartlari.Padding = new System.Windows.Forms.Padding(4);
-            this.gbOyuncuKartlari.Size = new System.Drawing.Size(2021, 372);
+            this.gbOyuncuKartlari.Size = new System.Drawing.Size(1516, 302);
             this.gbOyuncuKartlari.TabIndex = 2;
             this.gbOyuncuKartlari.TabStop = false;
             this.gbOyuncuKartlari.Text = "Oyuncu Kartları";
             // 
             // btnSavasBaslat
             // 
-            this.btnSavasBaslat.Location = new System.Drawing.Point(20, 52);
+            this.btnSavasBaslat.Location = new System.Drawing.Point(15, 42);
+            this.btnSavasBaslat.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnSavasBaslat.Name = "btnSavasBaslat";
-            this.btnSavasBaslat.Size = new System.Drawing.Size(86, 77);
+            this.btnSavasBaslat.Size = new System.Drawing.Size(64, 63);
             this.btnSavasBaslat.TabIndex = 3;
             this.btnSavasBaslat.Text = "Devam";
             this.btnSavasBaslat.UseVisualStyleBackColor = true;
@@ -120,44 +121,48 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 158);
+            this.label1.Location = new System.Drawing.Point(9, 128);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 16);
+            this.label1.Size = new System.Drawing.Size(92, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Bilgisayar Puanları";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 271);
+            this.label2.Location = new System.Drawing.Point(9, 220);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(107, 16);
+            this.label2.Size = new System.Drawing.Size(86, 13);
             this.label2.TabIndex = 5;
             this.label2.Text = "Kullanıcı puanları";
             // 
             // lblBilgisayarSeviyePuani
             // 
             this.lblBilgisayarSeviyePuani.AutoSize = true;
-            this.lblBilgisayarSeviyePuani.Location = new System.Drawing.Point(12, 193);
+            this.lblBilgisayarSeviyePuani.Location = new System.Drawing.Point(9, 157);
+            this.lblBilgisayarSeviyePuani.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblBilgisayarSeviyePuani.Name = "lblBilgisayarSeviyePuani";
-            this.lblBilgisayarSeviyePuani.Size = new System.Drawing.Size(27, 16);
+            this.lblBilgisayarSeviyePuani.Size = new System.Drawing.Size(22, 13);
             this.lblBilgisayarSeviyePuani.TabIndex = 6;
             this.lblBilgisayarSeviyePuani.Text = "-----";
             // 
             // lblKullaniciSeviyePuani
             // 
             this.lblKullaniciSeviyePuani.AutoSize = true;
-            this.lblKullaniciSeviyePuani.Location = new System.Drawing.Point(12, 311);
+            this.lblKullaniciSeviyePuani.Location = new System.Drawing.Point(9, 253);
+            this.lblKullaniciSeviyePuani.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblKullaniciSeviyePuani.Name = "lblKullaniciSeviyePuani";
-            this.lblKullaniciSeviyePuani.Size = new System.Drawing.Size(35, 16);
+            this.lblKullaniciSeviyePuani.Size = new System.Drawing.Size(28, 13);
             this.lblKullaniciSeviyePuani.TabIndex = 7;
             this.lblKullaniciSeviyePuani.Text = "-------";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1924, 1040);
+            this.ClientSize = new System.Drawing.Size(1155, 687);
             this.Controls.Add(this.lblKullaniciSeviyePuani);
             this.Controls.Add(this.lblBilgisayarSeviyePuani);
             this.Controls.Add(this.label2);
@@ -166,7 +171,7 @@
             this.Controls.Add(this.gbOyuncuKartlari);
             this.Controls.Add(this.gbSavasAlani);
             this.Controls.Add(this.gbBilgisayarKartlari);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);

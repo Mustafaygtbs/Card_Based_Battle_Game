@@ -140,6 +140,9 @@ namespace ProLab2SavasOyunu.Controllers
             // Logları yeni bir formda gösteriyoruz
             LogForm logForm = new LogForm(tumLoglar);
             logForm.ShowDialog();
+           
+
+           
         }
 
 

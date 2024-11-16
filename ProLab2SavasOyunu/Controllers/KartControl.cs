@@ -20,7 +20,7 @@ namespace ProLab2SavasOyunu.Controllers
 
         // Card information
         public SavasAraclari Kart { get; private set; }
-        public bool IsSelected { get;  set; } = false;
+        public bool IsSelected { get; set; } = false;
 
         public KartControl(SavasAraclari kart)
         {
@@ -59,9 +59,9 @@ namespace ProLab2SavasOyunu.Controllers
             // 
             // kartGorsel
             // 
-            this.kartGorsel.Location = new Point(10, 30);
+            this.kartGorsel.Location = new Point(0, 0);
             this.kartGorsel.Name = "kartGorsel";
-            this.kartGorsel.Size = new Size(160, 100);
+            this.kartGorsel.Size = new Size(120, 160);
             this.kartGorsel.SizeMode = PictureBoxSizeMode.StretchImage;
             this.kartGorsel.TabIndex = 0;
             this.kartGorsel.TabStop = false;
@@ -70,51 +70,65 @@ namespace ProLab2SavasOyunu.Controllers
             // 
             this.kartTuruLabel.AutoSize = true;
             this.kartTuruLabel.Font = new Font("Arial", 10F, FontStyle.Bold);
-            this.kartTuruLabel.Location = new Point(60, 5);
+            this.kartTuruLabel.ForeColor = Color.White;
+            this.kartTuruLabel.BackColor = Color.FromArgb(128, 0, 0, 0); // Yarı saydam siyah arka plan
+            this.kartTuruLabel.Location = new Point(5, 5);
             this.kartTuruLabel.Name = "kartTuruLabel";
-            this.kartTuruLabel.Size = new Size(70, 19);
-            this.kartTuruLabel.TabIndex = 5;
+            this.kartTuruLabel.Size = new Size(70, 16);
+            this.kartTuruLabel.TabIndex = 1;
             this.kartTuruLabel.Text = "Kart Türü";
             // 
             // puanLabel
             // 
             this.puanLabel.AutoSize = true;
-            this.puanLabel.Location = new Point(10, 135);
+            this.puanLabel.Font = new Font("Arial", 8F, FontStyle.Bold);
+            this.puanLabel.ForeColor = Color.White;
+            this.puanLabel.BackColor = Color.FromArgb(128, 0, 0, 0);
+            this.puanLabel.Location = new Point(5, 25);
             this.puanLabel.Name = "puanLabel";
-            this.puanLabel.Size = new Size(44, 16);
-            this.puanLabel.TabIndex = 1;
+            this.puanLabel.Size = new Size(44, 13);
+            this.puanLabel.TabIndex = 2;
             this.puanLabel.Text = "Puan: ";
             // 
             // hasarLabel
             // 
             this.hasarLabel.AutoSize = true;
-            this.hasarLabel.Location = new Point(100, 135);
+            this.hasarLabel.Font = new Font("Arial", 8F, FontStyle.Bold);
+            this.hasarLabel.ForeColor = Color.White;
+            this.hasarLabel.BackColor = Color.FromArgb(128, 0, 0, 0);
+            this.hasarLabel.Location = new Point(5, 40);
             this.hasarLabel.Name = "hasarLabel";
-            this.hasarLabel.Size = new Size(50, 16);
-            this.hasarLabel.TabIndex = 2;
+            this.hasarLabel.Size = new Size(50, 13);
+            this.hasarLabel.TabIndex = 3;
             this.hasarLabel.Text = "Hasar: ";
             // 
             // dayaniklilikLabel
             // 
             this.dayaniklilikLabel.AutoSize = true;
-            this.dayaniklilikLabel.Location = new Point(10, 155);
+            this.dayaniklilikLabel.Font = new Font("Arial", 8F, FontStyle.Bold);
+            this.dayaniklilikLabel.ForeColor = Color.White;
+            this.dayaniklilikLabel.BackColor = Color.FromArgb(128, 0, 0, 0);
+            this.dayaniklilikLabel.Location = new Point(5, 55);
             this.dayaniklilikLabel.Name = "dayaniklilikLabel";
-            this.dayaniklilikLabel.Size = new Size(82, 16);
-            this.dayaniklilikLabel.TabIndex = 3;
+            this.dayaniklilikLabel.Size = new Size(69, 13);
+            this.dayaniklilikLabel.TabIndex = 4;
             this.dayaniklilikLabel.Text = "Dayanıklılık: ";
             // 
             // seviyePuaniLabel
             // 
             this.seviyePuaniLabel.AutoSize = true;
-            this.seviyePuaniLabel.Location = new Point(100, 155);
+            this.seviyePuaniLabel.Font = new Font("Arial", 8F, FontStyle.Bold);
+            this.seviyePuaniLabel.ForeColor = Color.White;
+            this.seviyePuaniLabel.BackColor = Color.FromArgb(128, 0, 0, 0);
+            this.seviyePuaniLabel.Location = new Point(5, 70);
             this.seviyePuaniLabel.Name = "seviyePuaniLabel";
-            this.seviyePuaniLabel.Size = new Size(55, 16);
-            this.seviyePuaniLabel.TabIndex = 4;
+            this.seviyePuaniLabel.Size = new Size(49, 13);
+            this.seviyePuaniLabel.TabIndex = 5;
             this.seviyePuaniLabel.Text = "Seviye: ";
             // 
             // KartControl
             // 
-            this.BackColor = Color.PowderBlue;
+            this.BackColor = Color.Transparent;
             this.Controls.Add(this.kartTuruLabel);
             this.Controls.Add(this.puanLabel);
             this.Controls.Add(this.hasarLabel);
@@ -122,8 +136,8 @@ namespace ProLab2SavasOyunu.Controllers
             this.Controls.Add(this.seviyePuaniLabel);
             this.Controls.Add(this.kartGorsel);
             this.Name = "KartControl";
-            this.Size = new Size(180, 180);
-            this.Load += new EventHandler(this.KartControl_Load);
+            this.Size = new Size(120, 160);
+            this.Margin = new Padding(5);
             ((System.ComponentModel.ISupportInitialize)(this.kartGorsel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -132,20 +146,20 @@ namespace ProLab2SavasOyunu.Controllers
         // Draw rounded corners and border
         private void KartControl_Paint(object sender, PaintEventArgs e)
         {
-            int radius = 20;
+            int radius = 10;
 
             GraphicsPath path = new GraphicsPath();
             path.AddArc(0, 0, radius, radius, 180, 90);
-            path.AddArc(this.Width - radius, 0, radius, radius, 270, 90);
-            path.AddArc(this.Width - radius, this.Height - radius, radius, radius, 0, 90);
-            path.AddArc(0, this.Height - radius, radius, radius, 90, 90);
+            path.AddArc(this.Width - radius - 1, 0, radius, radius, 270, 90);
+            path.AddArc(this.Width - radius - 1, this.Height - radius - 1, radius, radius, 0, 90);
+            path.AddArc(0, this.Height - radius - 1, radius, radius, 90, 90);
             path.CloseAllFigures();
 
             this.Region = new Region(path);
 
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
-            using (Pen pen = new Pen(Color.DarkSlateGray, 3))
+            using (Pen pen = new Pen(Color.DarkSlateGray, 2))
             {
                 e.Graphics.DrawPath(pen, path);
             }
@@ -155,17 +169,16 @@ namespace ProLab2SavasOyunu.Controllers
         private void KartControl_Click(object sender, EventArgs e)
         {
             IsSelected = !IsSelected;
-            this.BackColor = IsSelected ? Color.LightGreen : Color.PowderBlue;
+            this.BackColor = IsSelected ? Color.FromArgb(128, 0, 255, 0) : Kart.KullanildiMi ? Color.FromArgb(128, 255, 0, 0) : Color.Transparent;
 
             // Kart seçimi değiştiğinde olayı tetikle
             KartSecildi?.Invoke(this, EventArgs.Empty);
         }
 
-
         public void Sec()
         {
             IsSelected = true;
-            this.BackColor = Color.LightGreen;
+            this.BackColor = Color.FromArgb(128, 0, 255, 0);
             Kart.KullanildiMi = true;
         }
 
@@ -175,11 +188,11 @@ namespace ProLab2SavasOyunu.Controllers
             // Kartın kullanım durumuna göre arka planı ayarla
             if (Kart.KullanildiMi)
             {
-                this.BackColor = Color.LightCoral;
+                this.BackColor = Color.FromArgb(128, 255, 0, 0);
             }
             else
             {
-                this.BackColor = Color.PowderBlue;
+                this.BackColor = Color.Transparent;
             }
         }
 
@@ -187,17 +200,11 @@ namespace ProLab2SavasOyunu.Controllers
         {
             // Hide the card details for the computer's cards
             kartGorsel.Image = null;
-            puanLabel.Text = "Puan: ?";
-            hasarLabel.Text = "Hasar: ?";
-            dayaniklilikLabel.Text = "Dayanıklılık: ?";
-            seviyePuaniLabel.Text = "Seviye: ?";
-            kartTuruLabel.Text = "Kart";
-        }
-
-        private void KartControl_Load(object sender, EventArgs e)
-        {
-            // Attach click events to all child controls
-            AddClickEvent(this.Controls);
+            puanLabel.Text = "";
+            hasarLabel.Text = "";
+            dayaniklilikLabel.Text = "";
+            seviyePuaniLabel.Text = "";
+            kartTuruLabel.Text = "";
         }
 
         // Update card information
@@ -216,14 +223,12 @@ namespace ProLab2SavasOyunu.Controllers
             // Kullanılmış kartların arka planını kırmızı yapalım
             if (kart.KullanildiMi)
             {
-                this.BackColor = Color.LightCoral; // Kırmızı tonlarında bir renk
+                this.BackColor = Color.FromArgb(128, 255, 0, 0); // Yarı saydam kırmızı
             }
             else
             {
-                this.BackColor = Color.PowderBlue; // Varsayılan renk
+                this.BackColor = Color.Transparent; // Varsayılan renk
             }
         }
-
-
     }
 }
