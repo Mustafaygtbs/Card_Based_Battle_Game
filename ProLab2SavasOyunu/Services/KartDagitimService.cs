@@ -35,7 +35,7 @@ namespace ProLab2SavasOyunu.Services
             }
         }
 
-        public List<SavasAraclari> KartlariDagit(int adet, int seviyePuani)
+        public List<SavasAraclari> KartlariDagit(int adet, int seviyePuani, int baslangicSeviyePuani)
         {
             KartHavuzunuOlustur(seviyePuani);
             var dagitilanKartlar = new List<SavasAraclari>();
@@ -43,14 +43,15 @@ namespace ProLab2SavasOyunu.Services
             for (int i = 0; i < adet; i++)
             {
                 int index = _random.Next(_kartTipleri.Count);
-                var kart = (SavasAraclari)Activator.CreateInstance(_kartTipleri[index]);
+                var kart = (SavasAraclari)Activator.CreateInstance(_kartTipleri[index], baslangicSeviyePuani);
                 dagitilanKartlar.Add(kart);
             }
 
             return dagitilanKartlar;
         }
 
-        
+
+
         public SavasAraclari YeniKartVer(int seviyePuani)
         {
             KartHavuzunuOlustur(seviyePuani);

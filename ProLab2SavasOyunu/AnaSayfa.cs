@@ -20,8 +20,11 @@ namespace ProLab2SavasOyunu
             kartSayisiComboBox.SelectedItem = KartSayisi; 
 
             // Tur Sayısı ComboBox ayarları
-            turSayisiComboBox.Items.AddRange(new object[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
-            turSayisiComboBox.SelectedItem = TurSayisi; 
+            turSayisiComboBox.Items.AddRange(new object[] { 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11 });
+            turSayisiComboBox.SelectedItem = TurSayisi;
+
+            txtBaslangicSeviyePuani.Text = "0";
+
         }
 
       
@@ -30,7 +33,8 @@ namespace ProLab2SavasOyunu
         {
              KartSayisi = (int)kartSayisiComboBox.SelectedItem;
             TurSayisi = (int)turSayisiComboBox.SelectedItem;
-            Form1 oyunFormu = new Form1(KartSayisi, TurSayisi);
+            int baslangicSeviyePuani = Convert.ToInt32(txtBaslangicSeviyePuani.Text);
+            Form1 oyunFormu = new Form1(KartSayisi, TurSayisi, baslangicSeviyePuani);
             oyunFormu.Show();
             this.Hide();
             

@@ -35,6 +35,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtBaslangicSeviyePuani = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -61,8 +63,7 @@
             // 
             // kartSayisiComboBox
             // 
-        //    this.kartSayisiComboBox.FormattingEnabled = true;
-            this.kartSayisiComboBox.Location = new System.Drawing.Point(268, 246);
+            this.kartSayisiComboBox.Location = new System.Drawing.Point(178, 259);
             this.kartSayisiComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.kartSayisiComboBox.Name = "kartSayisiComboBox";
             this.kartSayisiComboBox.Size = new System.Drawing.Size(124, 24);
@@ -72,7 +73,7 @@
             // turSayisiComboBox
             // 
             this.turSayisiComboBox.FormattingEnabled = true;
-            this.turSayisiComboBox.Location = new System.Drawing.Point(629, 246);
+            this.turSayisiComboBox.Location = new System.Drawing.Point(534, 259);
             this.turSayisiComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.turSayisiComboBox.Name = "turSayisiComboBox";
             this.turSayisiComboBox.Size = new System.Drawing.Size(160, 24);
@@ -82,7 +83,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label3.Location = new System.Drawing.Point(268, 197);
+            this.label3.Location = new System.Drawing.Point(178, 210);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(200, 25);
@@ -93,7 +94,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label4.Location = new System.Drawing.Point(624, 197);
+            this.label4.Location = new System.Drawing.Point(529, 210);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(206, 25);
@@ -111,11 +112,31 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label5.Location = new System.Drawing.Point(806, 210);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(217, 25);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Başlangıç Seviye Puanı";
+            // 
+            // txtBaslangicSeviyePuani
+            // 
+            this.txtBaslangicSeviyePuani.Location = new System.Drawing.Point(823, 261);
+            this.txtBaslangicSeviyePuani.Name = "txtBaslangicSeviyePuani";
+            this.txtBaslangicSeviyePuani.Size = new System.Drawing.Size(146, 22);
+            this.txtBaslangicSeviyePuani.TabIndex = 8;
+            // 
             // AnaSayfa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1249, 586);
+            this.Controls.Add(this.txtBaslangicSeviyePuani);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -142,5 +163,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtBaslangicSeviyePuani;
     }
 }

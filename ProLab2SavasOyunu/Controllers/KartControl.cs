@@ -48,99 +48,101 @@ namespace ProLab2SavasOyunu.Controllers
 
         private void InitializeComponent()
         {
-            this.kartGorsel = new PictureBox();
-            this.kartTuruLabel = new Label();
-            this.puanLabel = new Label();
-            this.hasarLabel = new Label();
-            this.dayaniklilikLabel = new Label();
-            this.seviyePuaniLabel = new Label();
+            this.kartGorsel = new System.Windows.Forms.PictureBox();
+            this.kartTuruLabel = new System.Windows.Forms.Label();
+            this.puanLabel = new System.Windows.Forms.Label();
+            this.hasarLabel = new System.Windows.Forms.Label();
+            this.dayaniklilikLabel = new System.Windows.Forms.Label();
+            this.seviyePuaniLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.kartGorsel)).BeginInit();
             this.SuspendLayout();
             // 
             // kartGorsel
             // 
-            this.kartGorsel.Location = new Point(0, 0);
+            this.kartGorsel.Location = new System.Drawing.Point(2, -1);
             this.kartGorsel.Name = "kartGorsel";
-            this.kartGorsel.Size = new Size(120, 160);
-            this.kartGorsel.SizeMode = PictureBoxSizeMode.StretchImage;
+            this.kartGorsel.Size = new System.Drawing.Size(120, 160);
+            this.kartGorsel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.kartGorsel.TabIndex = 0;
             this.kartGorsel.TabStop = false;
+     //       this.kartGorsel.Click += new System.EventHandler(this.kartGorsel_Click);
             // 
             // kartTuruLabel
             // 
             this.kartTuruLabel.AutoSize = true;
-            this.kartTuruLabel.Font = new Font("Arial", 10F, FontStyle.Bold);
-            this.kartTuruLabel.ForeColor = Color.White;
-            this.kartTuruLabel.BackColor = Color.FromArgb(128, 0, 0, 0); // Yarı saydam siyah arka plan
-            this.kartTuruLabel.Location = new Point(5, 5);
+            this.kartTuruLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.kartTuruLabel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
+            this.kartTuruLabel.ForeColor = System.Drawing.Color.White;
+            this.kartTuruLabel.Location = new System.Drawing.Point(5, 5);
             this.kartTuruLabel.Name = "kartTuruLabel";
-            this.kartTuruLabel.Size = new Size(70, 16);
+            this.kartTuruLabel.Size = new System.Drawing.Size(85, 19);
             this.kartTuruLabel.TabIndex = 1;
             this.kartTuruLabel.Text = "Kart Türü";
             // 
             // puanLabel
             // 
             this.puanLabel.AutoSize = true;
-            this.puanLabel.Font = new Font("Arial", 8F, FontStyle.Bold);
-            this.puanLabel.ForeColor = Color.White;
-            this.puanLabel.BackColor = Color.FromArgb(128, 0, 0, 0);
-            this.puanLabel.Location = new Point(5, 25);
+            this.puanLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.puanLabel.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
+            this.puanLabel.ForeColor = System.Drawing.Color.White;
+            this.puanLabel.Location = new System.Drawing.Point(5, 25);
             this.puanLabel.Name = "puanLabel";
-            this.puanLabel.Size = new Size(44, 13);
+            this.puanLabel.Size = new System.Drawing.Size(50, 16);
             this.puanLabel.TabIndex = 2;
             this.puanLabel.Text = "Puan: ";
             // 
             // hasarLabel
             // 
             this.hasarLabel.AutoSize = true;
-            this.hasarLabel.Font = new Font("Arial", 8F, FontStyle.Bold);
-            this.hasarLabel.ForeColor = Color.White;
-            this.hasarLabel.BackColor = Color.FromArgb(128, 0, 0, 0);
-            this.hasarLabel.Location = new Point(5, 40);
+            this.hasarLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.hasarLabel.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
+            this.hasarLabel.ForeColor = System.Drawing.Color.White;
+            this.hasarLabel.Location = new System.Drawing.Point(5, 40);
             this.hasarLabel.Name = "hasarLabel";
-            this.hasarLabel.Size = new Size(50, 13);
+            this.hasarLabel.Size = new System.Drawing.Size(55, 16);
             this.hasarLabel.TabIndex = 3;
             this.hasarLabel.Text = "Hasar: ";
             // 
             // dayaniklilikLabel
             // 
             this.dayaniklilikLabel.AutoSize = true;
-            this.dayaniklilikLabel.Font = new Font("Arial", 8F, FontStyle.Bold);
-            this.dayaniklilikLabel.ForeColor = Color.White;
-            this.dayaniklilikLabel.BackColor = Color.FromArgb(128, 0, 0, 0);
-            this.dayaniklilikLabel.Location = new Point(5, 55);
+            this.dayaniklilikLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.dayaniklilikLabel.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
+            this.dayaniklilikLabel.ForeColor = System.Drawing.Color.White;
+            this.dayaniklilikLabel.Location = new System.Drawing.Point(5, 55);
             this.dayaniklilikLabel.Name = "dayaniklilikLabel";
-            this.dayaniklilikLabel.Size = new Size(69, 13);
+            this.dayaniklilikLabel.Size = new System.Drawing.Size(93, 16);
             this.dayaniklilikLabel.TabIndex = 4;
             this.dayaniklilikLabel.Text = "Dayanıklılık: ";
             // 
             // seviyePuaniLabel
             // 
             this.seviyePuaniLabel.AutoSize = true;
-            this.seviyePuaniLabel.Font = new Font("Arial", 8F, FontStyle.Bold);
-            this.seviyePuaniLabel.ForeColor = Color.White;
-            this.seviyePuaniLabel.BackColor = Color.FromArgb(128, 0, 0, 0);
-            this.seviyePuaniLabel.Location = new Point(5, 70);
+            this.seviyePuaniLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.seviyePuaniLabel.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
+            this.seviyePuaniLabel.ForeColor = System.Drawing.Color.White;
+            this.seviyePuaniLabel.Location = new System.Drawing.Point(5, 70);
             this.seviyePuaniLabel.Name = "seviyePuaniLabel";
-            this.seviyePuaniLabel.Size = new Size(49, 13);
+            this.seviyePuaniLabel.Size = new System.Drawing.Size(62, 16);
             this.seviyePuaniLabel.TabIndex = 5;
             this.seviyePuaniLabel.Text = "Seviye: ";
             // 
             // KartControl
             // 
-            this.BackColor = Color.Transparent;
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.kartTuruLabel);
             this.Controls.Add(this.puanLabel);
             this.Controls.Add(this.hasarLabel);
             this.Controls.Add(this.dayaniklilikLabel);
             this.Controls.Add(this.seviyePuaniLabel);
             this.Controls.Add(this.kartGorsel);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "KartControl";
-            this.Size = new Size(120, 160);
-            this.Margin = new Padding(5);
+            this.Size = new System.Drawing.Size(120, 160);
             ((System.ComponentModel.ISupportInitialize)(this.kartGorsel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         // Draw rounded corners and border
@@ -230,5 +232,7 @@ namespace ProLab2SavasOyunu.Controllers
                 this.BackColor = Color.Transparent; // Varsayılan renk
             }
         }
+
+
     }
 }

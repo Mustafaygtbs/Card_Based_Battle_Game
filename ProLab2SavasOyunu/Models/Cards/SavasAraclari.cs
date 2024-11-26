@@ -24,6 +24,11 @@ namespace ProLab2SavasOyunu.Models.Cards
             KullanildiMi = false;
             ElenmisMi = false;
         }
+        public void SeviyePuaniGuncelle(int puanArtisi)
+        {
+            SeviyePuani += puanArtisi;
+        }
+
 
         public void KartPuaniGoster()
         {

@@ -13,6 +13,7 @@ namespace ProLab2SavasOyunu
     {
         private int _kartSayisi;
         private int _turSayisi;
+        private int BaslangicSeviyePuani;
         private Oyuncu bilgisayar;
         private Oyuncu oyuncu;
         private KartDagitimService kartDagitimService;
@@ -20,11 +21,12 @@ namespace ProLab2SavasOyunu
         private List<SavasAraclari> kullaniciSecilenKartlar;
         private List<SavasAraclari> bilgisayarSecilenKartlar;
 
-        public Form1(int kartSayisi, int turSayisi)
+        public Form1(int kartSayisi, int turSayisi, int baslangicSeviyePuani)
         {
             InitializeComponent();
             _kartSayisi = kartSayisi;
             _turSayisi = turSayisi;
+            BaslangicSeviyePuani = baslangicSeviyePuani;
             kartDagitimService = new KartDagitimService();
             kullaniciSecilenKartlar = new List<SavasAraclari>();
             bilgisayarSecilenKartlar = new List<SavasAraclari>();
@@ -37,8 +39,8 @@ namespace ProLab2SavasOyunu
             oyuncu = new Oyuncu(2, "Kullanıcı");
 
             // Kartlar dağıtılıyor
-            bilgisayar.KartListesi = kartDagitimService.KartlariDagit(_kartSayisi, bilgisayar.SeviyePuani);
-            oyuncu.KartListesi = kartDagitimService.KartlariDagit(_kartSayisi, oyuncu.SeviyePuani);
+            bilgisayar.KartListesi = kartDagitimService.KartlariDagit(_kartSayisi, bilgisayar.SeviyePuani, BaslangicSeviyePuani);
+            oyuncu.KartListesi = kartDagitimService.KartlariDagit(_kartSayisi, oyuncu.SeviyePuani, BaslangicSeviyePuani);
 
             // OyunController oluşturuluyor
             oyunController = new OyunController(oyuncu, bilgisayar, _turSayisi);
@@ -216,23 +218,31 @@ namespace ProLab2SavasOyunu
 
         private void SavasAlaniniGoster()
         {
-            savasAlaniFlowPanel.Controls.Clear();
-
             // Kullanıcının seçtiği kartları göster
+            flowLayoutPanelKullaniciSecilenKartlar.Controls.Clear();
             foreach (var kart in kullaniciSecilenKartlar)
             {
-                var kartControl = new KartControl(kart);
-                savasAlaniFlowPanel.Controls.Add(kartControl);
+                var kartControl = new KartControl(kart)
+                {
+                    Size = new Size(120, 160)
+                };
+                flowLayoutPanelKullaniciSecilenKartlar.Controls.Add(kartControl);
             }
 
-            // Bilgisayarın seçtiği kartları göster (kartları gizlemiyoruz)
+            // Bilgisayarın seçtiği kartları göster
+            flowLayoutPanelBilgisayarSecilenKartlar.Controls.Clear();
             foreach (var kart in bilgisayarSecilenKartlar)
             {
-                var kartControl = new KartControl(kart);
-                // Burada GizleKart() metodunu çağırmıyoruz
-                savasAlaniFlowPanel.Controls.Add(kartControl);
+                var kartControl = new KartControl(kart)
+                {
+                    Size = new Size(120, 160)
+                };
+                // Eğer bilgisayarın kartlarını gizlemek isterseniz:
+                // kartControl.GizleKart();
+                flowLayoutPanelBilgisayarSecilenKartlar.Controls.Add(kartControl);
             }
         }
+
 
 
 
@@ -266,7 +276,8 @@ namespace ProLab2SavasOyunu
             BilgisayarKartlariniGoster();
 
             // Savaş alanını temizle
-            savasAlaniFlowPanel.Controls.Clear();
+            flowLayoutPanelKullaniciSecilenKartlar.Controls.Clear();
+            flowLayoutPanelBilgisayarSecilenKartlar.Controls.Clear();
             GuncelleSeviyePuanlari();
         }
 
@@ -369,9 +380,10 @@ namespace ProLab2SavasOyunu
         }
         private void GuncelleSeviyePuanlari()
         {
-            lblKullaniciSeviyePuani.Text = $" {oyuncu.SeviyePuani}";
-            lblBilgisayarSeviyePuani.Text = $" {bilgisayar.SeviyePuani}";
+            lblKullaniciSeviyePuani.Text = $"Kullanıcı Seviye Puanı: {oyuncu.Skor}";
+            lblBilgisayarSeviyePuani.Text = $"Bilgisayar Seviye Puanı: {bilgisayar.Skor}";
         }
+
 
     }
 }
