@@ -6,6 +6,7 @@ using ProLab2SavasOyunu.Controllers;
 using ProLab2SavasOyunu.Models.Cards;
 using ProLab2SavasOyunu.Models.Oyuncular;
 using ProLab2SavasOyunu.Services;
+using System.Windows.Forms;
 
 namespace ProLab2SavasOyunu
 {
@@ -30,6 +31,7 @@ namespace ProLab2SavasOyunu
             kartDagitimService = new KartDagitimService();
             kullaniciSecilenKartlar = new List<SavasAraclari>();
             bilgisayarSecilenKartlar = new List<SavasAraclari>();
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -39,8 +41,8 @@ namespace ProLab2SavasOyunu
             oyuncu = new Oyuncu(2, "Kullanıcı");
 
             // Kartlar dağıtılıyor
-            bilgisayar.KartListesi = kartDagitimService.KartlariDagit(_kartSayisi, bilgisayar.SeviyePuani, BaslangicSeviyePuani);
-            oyuncu.KartListesi = kartDagitimService.KartlariDagit(_kartSayisi, oyuncu.SeviyePuani, BaslangicSeviyePuani);
+            bilgisayar.KartListesi = kartDagitimService.KartlariDagit(_kartSayisi, bilgisayar.Skor, BaslangicSeviyePuani);
+            oyuncu.KartListesi = kartDagitimService.KartlariDagit(_kartSayisi, oyuncu.Skor, BaslangicSeviyePuani);
 
             // OyunController oluşturuluyor
             oyunController = new OyunController(oyuncu, bilgisayar, _turSayisi);
@@ -112,11 +114,20 @@ namespace ProLab2SavasOyunu
             // 3 kart seçildiğinde savaşı başlat butonunu aktif ediyoruz
             btnSavasBaslat.Enabled = kullaniciSecilenKartlar.Count == 3;
         }
+        private void HerTurSonundaKartEkle()
+        {
+            // Oyuncuya yeni bir kart ekleyelim
+            var yeniKartOyuncu = kartDagitimService.YeniKartVer(oyuncu.Skor);
+            oyuncu.KartEkle(yeniKartOyuncu);
 
+            // Bilgisayara yeni bir kart ekleyelim
+            var yeniKartBilgisayar = kartDagitimService.YeniKartVer(bilgisayar.Skor);
+            bilgisayar.KartEkle(yeniKartBilgisayar);
 
-
-
-
+            // Kartları güncelleyelim
+            OyuncuKartlariniGoster();
+            BilgisayarKartlariniGoster();
+        }
 
         private void SavasBaslat()
         {
@@ -166,7 +177,6 @@ namespace ProLab2SavasOyunu
                 MessageBox.Show($"Bir hata oluştu: {ex.Message}");
             }
         }
-
         private bool OyuncununKartlariniKontrolEt()
         {
             // Oyuncunun elindeki kart sayısını kontrol ediyoruz
@@ -183,14 +193,12 @@ namespace ProLab2SavasOyunu
 
                 for (int i = 0; i < eklenecekKartSayisi; i++)
                 {
-                    oyuncu.KartEkle(kartDagitimService.YeniKartVer(oyuncu.SeviyePuani));
+                    oyuncu.KartEkle(kartDagitimService.YeniKartVer(oyuncu.Skor));
                 }
             }
-
             // Oyuncunun kartı var, oyun devam edebilir
             return true;
         }
-
         private bool BilgisayarinKartlariniKontrolEt()
         {
             // Bilgisayarın elindeki kart sayısını kontrol ediyoruz
@@ -207,7 +215,7 @@ namespace ProLab2SavasOyunu
 
                 for (int i = 0; i < eklenecekKartSayisi; i++)
                 {
-                    bilgisayar.KartEkle(kartDagitimService.YeniKartVer(bilgisayar.SeviyePuani));
+                    bilgisayar.KartEkle(kartDagitimService.YeniKartVer(bilgisayar.Skor));
                 }
             }
 
@@ -243,10 +251,6 @@ namespace ProLab2SavasOyunu
             }
         }
 
-
-
-
-
         private void SavasSonrasiGuncelle()
         {
             // Kullanıcı ve bilgisayar kartlarını güncelle
@@ -278,6 +282,7 @@ namespace ProLab2SavasOyunu
             // Savaş alanını temizle
             flowLayoutPanelKullaniciSecilenKartlar.Controls.Clear();
             flowLayoutPanelBilgisayarSecilenKartlar.Controls.Clear();
+            HerTurSonundaKartEkle();
             GuncelleSeviyePuanlari();
         }
 
@@ -316,17 +321,20 @@ namespace ProLab2SavasOyunu
                     mesaj = "Oyunu Kullanıcı Kazandı!";
                 else if (oyunController.Bilgisayar.Skor > oyunController.Kullanici.Skor)
                     mesaj = "Oyunu Bilgisayar Kazandı!";
-                else
+                else              
                     mesaj = "Oyun Berabere!";
             }
 
-            // Savaş loglarını gösteriyoruz
-            oyunController.LoglariGoster();
+            string dosyaYolu = "C:\\Users\\Mustafa\\Desktop\\Prolab2\\SavasLoglari.xlsx"; 
+
+            oyunController.LoglariExcelOlarakKaydet(dosyaYolu);
+
+            MessageBox.Show("Savaş sonuçları başarıyla indirildi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             // Sonucu gösteriyoruz
             MessageBox.Show(mesaj);
 
-            // Uygulamayı kapatıyoruz
+
             this.Close();
         }
 
@@ -380,10 +388,9 @@ namespace ProLab2SavasOyunu
         }
         private void GuncelleSeviyePuanlari()
         {
-            lblKullaniciSeviyePuani.Text = $"Kullanıcı Seviye Puanı: {oyuncu.Skor}";
-            lblBilgisayarSeviyePuani.Text = $"Bilgisayar Seviye Puanı: {bilgisayar.Skor}";
+            lblKullaniciSkor.Text = $"Kullanıcı Seviye Puanı: {oyuncu.Skor}";
+            lblBilgisayarSkor.Text = $"Bilgisayar Seviye Puanı: {bilgisayar.Skor}";
         }
-
-
+      
     }
 }

@@ -33,6 +33,7 @@ namespace ProLab2SavasOyunu.Models.Cards.Kara
             if (Dayaniklilik <= 0)
             {
                 Dayaniklilik = 0;
+                ElenmisMi = true;
                 Console.WriteLine($"{AltSinif} aracı devre dışı kaldı!");
             }
         }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AnaSayfa));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.kartSayisiComboBox = new System.Windows.Forms.ComboBox();
@@ -43,18 +44,18 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label1.Location = new System.Drawing.Point(239, 60);
+            this.label1.Location = new System.Drawing.Point(535, 365);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(636, 31);
+            this.label1.Size = new System.Drawing.Size(925, 31);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Selamlar Babayiğitler Yiğit Meydanına Hoş Geldiniz ";
+            this.label1.Text = "Mustafa Yiğitbaşı Ve Süleyman Emre Ünverenin Kart Oyununa Hoş Geldiniz";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label2.Location = new System.Drawing.Point(384, 130);
+            this.label2.Location = new System.Drawing.Point(821, 420);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(377, 31);
@@ -63,7 +64,7 @@
             // 
             // kartSayisiComboBox
             // 
-            this.kartSayisiComboBox.Location = new System.Drawing.Point(178, 259);
+            this.kartSayisiComboBox.Location = new System.Drawing.Point(616, 548);
             this.kartSayisiComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.kartSayisiComboBox.Name = "kartSayisiComboBox";
             this.kartSayisiComboBox.Size = new System.Drawing.Size(124, 24);
@@ -73,7 +74,7 @@
             // turSayisiComboBox
             // 
             this.turSayisiComboBox.FormattingEnabled = true;
-            this.turSayisiComboBox.Location = new System.Drawing.Point(534, 259);
+            this.turSayisiComboBox.Location = new System.Drawing.Point(971, 548);
             this.turSayisiComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.turSayisiComboBox.Name = "turSayisiComboBox";
             this.turSayisiComboBox.Size = new System.Drawing.Size(160, 24);
@@ -83,7 +84,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label3.Location = new System.Drawing.Point(178, 210);
+            this.label3.Location = new System.Drawing.Point(616, 500);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(200, 25);
@@ -94,7 +95,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label4.Location = new System.Drawing.Point(529, 210);
+            this.label4.Location = new System.Drawing.Point(967, 500);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(206, 25);
@@ -103,7 +104,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(455, 318);
+            this.button1.Location = new System.Drawing.Point(971, 622);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(139, 80);
@@ -116,7 +117,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label5.Location = new System.Drawing.Point(806, 210);
+            this.label5.Location = new System.Drawing.Point(1243, 500);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(217, 25);
@@ -125,16 +126,19 @@
             // 
             // txtBaslangicSeviyePuani
             // 
-            this.txtBaslangicSeviyePuani.Location = new System.Drawing.Point(823, 261);
+            this.txtBaslangicSeviyePuani.Location = new System.Drawing.Point(1260, 550);
+            this.txtBaslangicSeviyePuani.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBaslangicSeviyePuani.Name = "txtBaslangicSeviyePuani";
-            this.txtBaslangicSeviyePuani.Size = new System.Drawing.Size(146, 22);
+            this.txtBaslangicSeviyePuani.Size = new System.Drawing.Size(145, 22);
             this.txtBaslangicSeviyePuani.TabIndex = 8;
             // 
             // AnaSayfa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1249, 586);
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(1955, 844);
             this.Controls.Add(this.txtBaslangicSeviyePuani);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.button1);
@@ -147,6 +151,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AnaSayfa";
             this.Text = "AnaSayfa";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AnaSayfa_FormClosing);
             this.Load += new System.EventHandler(this.AnaSayfa_Load);
             this.ResumeLayout(false);

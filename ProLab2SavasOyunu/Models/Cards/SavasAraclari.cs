@@ -8,7 +8,7 @@ namespace ProLab2SavasOyunu.Models.Cards
     public abstract class SavasAraclari 
     {
         public Guid Id { get; }  
-        public int SeviyePuani { get; set; }
+        public int SeviyePuani { get; private set; }
         public abstract int Dayaniklilik { get; set; }
         public abstract int Vurus { get; set; }
         public abstract KartTipi Sinif { get; }
@@ -28,6 +28,7 @@ namespace ProLab2SavasOyunu.Models.Cards
         {
             SeviyePuani += puanArtisi;
         }
+
 
 
         public void KartPuaniGoster()

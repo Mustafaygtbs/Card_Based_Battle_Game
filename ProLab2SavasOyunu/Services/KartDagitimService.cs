@@ -17,17 +17,15 @@ namespace ProLab2SavasOyunu.Services
             _kartTipleri = new List<Type>();
         }
 
-        private void KartHavuzunuOlustur(int seviyePuani)
+        private void KartHavuzunuOlustur(int oyuncuSkor)
         {
             _kartTipleri.Clear();
 
-            
             _kartTipleri.Add(typeof(Ucak));
             _kartTipleri.Add(typeof(Obus));
             _kartTipleri.Add(typeof(Firkateyn));
 
-          
-            if (seviyePuani >= 20)
+            if (oyuncuSkor >= 30)
             {
                 _kartTipleri.Add(typeof(Siha));
                 _kartTipleri.Add(typeof(KFS));
@@ -49,12 +47,10 @@ namespace ProLab2SavasOyunu.Services
 
             return dagitilanKartlar;
         }
-
-
-
-        public SavasAraclari YeniKartVer(int seviyePuani)
+        
+        public SavasAraclari YeniKartVer(int oyuncuSkor)
         {
-            KartHavuzunuOlustur(seviyePuani);
+            KartHavuzunuOlustur(oyuncuSkor);
             int index = _random.Next(_kartTipleri.Count);
             var kart = (SavasAraclari)Activator.CreateInstance(_kartTipleri[index]);
             return kart;

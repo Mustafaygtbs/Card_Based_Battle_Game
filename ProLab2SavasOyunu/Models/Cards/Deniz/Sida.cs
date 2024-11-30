@@ -33,7 +33,8 @@ namespace ProLab2SavasOyunu.Models.Cards.Deniz
             Dayaniklilik -= hasar;
             if (Dayaniklilik <= 0)
             {
-                Dayaniklilik = 0; 
+                Dayaniklilik = 0;
+                ElenmisMi = true;
                 Console.WriteLine($"{AltSinif} aracı devre dışı kaldı!");
             }
         }

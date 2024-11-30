@@ -3,6 +3,7 @@ using ProLab2SavasOyunu.Models.Oyuncular;
 using ProLab2SavasOyunu.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ProLab2SavasOyunu.Controllers
@@ -34,31 +35,45 @@ namespace ProLab2SavasOyunu.Controllers
                 return;
             }
 
-           
             List<string> turLoglari = new List<string>();
 
-          
             for (int i = 0; i < 3; i++)
             {
                 var kullaniciKart = kullaniciKartlari[i];
                 var bilgisayarKart = bilgisayarKartlari[i];
 
-               
-                int kullaniciHasar = kullaniciKart.SaldiriHesapla(bilgisayarKart);
-                int bilgisayarHasar = bilgisayarKart.SaldiriHesapla(kullaniciKart);
 
+                int kullaniciHasar = kullaniciKart.SaldiriHesapla(bilgisayarKart);
                 bilgisayarKart.DurumGuncelle(kullaniciHasar);
+
+
+                int bilgisayarHasar = bilgisayarKart.SaldiriHesapla(kullaniciKart);
                 kullaniciKart.DurumGuncelle(bilgisayarHasar);
 
-               
-                puanHesaplamaService.SkorHesapla(Kullanici, Bilgisayar, kullaniciKart, bilgisayarKart);
 
-               
                 int kullaniciAvantaj = kullaniciKart.GetVurusAvantaji(bilgisayarKart);
+
                 int bilgisayarAvantaj = bilgisayarKart.GetVurusAvantaji(kullaniciKart);
 
-              
-                string turNumarasi = (GuncelTur).ToString();
+                string turNumarasi = GuncelTur.ToString();
+
+
+                if (bilgisayarKart.Dayaniklilik <= 0 || !bilgisayarKart.ElenmisMi)
+                {
+                    bilgisayarKart.ElenmisMi = true;
+
+                    puanHesaplamaService.SkorHesapla(Kullanici, kullaniciKart);
+                }
+
+
+                if (kullaniciKart.Dayaniklilik <= 0 || !kullaniciKart.ElenmisMi)
+                {
+                    kullaniciKart.ElenmisMi = true;
+
+
+                    puanHesaplamaService.SkorHesapla(Bilgisayar, bilgisayarKart);
+                }
+
 
                 logger.LogEkle(new SavasLog
                 {
@@ -70,7 +85,7 @@ namespace ProLab2SavasOyunu.Controllers
                     HedefKart = bilgisayarKart.AltSinif,
                     VurulanHasar = kullaniciHasar,
                     Avantaj = kullaniciAvantaj,
-                    KazanilanPuan = kullaniciKart.Dayaniklilik <= 0 ? 10 : 0
+                    KazanilanPuan = (bilgisayarKart.Dayaniklilik <= 0) ? 10 : 0
                 });
 
                 logger.LogEkle(new SavasLog
@@ -83,10 +98,10 @@ namespace ProLab2SavasOyunu.Controllers
                     HedefKart = kullaniciKart.AltSinif,
                     VurulanHasar = bilgisayarHasar,
                     Avantaj = bilgisayarAvantaj,
-                    KazanilanPuan = bilgisayarKart.Dayaniklilik <= 0 ? 10 : 0
+                    KazanilanPuan = (kullaniciKart.Dayaniklilik <= 0) ? 10 : 0
                 });
 
-              
+
                 if (bilgisayarKart.Dayaniklilik <= 0)
                 {
                     turLoglari.Add($"{Bilgisayar.OyuncuAdi}'nın {bilgisayarKart.AltSinif} kartı yok edildi!");
@@ -108,7 +123,6 @@ namespace ProLab2SavasOyunu.Controllers
 
             GuncelTur++;
 
-         
             string turLoguMesaji = $"Tur {GuncelTur - 1} Sonuçları:\n";
             turLoguMesaji += string.Join("\n", turLoglari);
             MessageBox.Show(turLoguMesaji);
@@ -118,9 +132,6 @@ namespace ProLab2SavasOyunu.Controllers
                 OyunSonucu();
             }
         }
-
-
-
         private void OyunSonucu()
         {
             string mesaj;
@@ -129,21 +140,34 @@ namespace ProLab2SavasOyunu.Controllers
             else if (Bilgisayar.Skor > Kullanici.Skor)
                 mesaj = "Oyunu Bilgisayar Kazandı!";
             else
-                mesaj = "Oyun Berabere!";
+            {
+                int kullaniciDayaniklilik = Kullanici.KartListesi.Sum(k => k.Dayaniklilik);
+                int bilgisayarDayaniklilik = Bilgisayar.KartListesi.Sum(k => k.Dayaniklilik);
 
-         
-            List<SavasLog> tumLoglar = logger.LoglariAl();
+                if (kullaniciDayaniklilik > bilgisayarDayaniklilik)
+                {
+                    mesaj = "Dayanıklılık puanına göre Oyunu Kullanıcı Kazandı!";
+                    int fark = kullaniciDayaniklilik - bilgisayarDayaniklilik;
+                    Kullanici.SkorGuncelle(fark);
+                }
+                else if (bilgisayarDayaniklilik > kullaniciDayaniklilik)
+                {
+                    mesaj = "Dayanıklılık puanına göre Oyunu Bilgisayar Kazandı!";
+                    int fark = bilgisayarDayaniklilik - kullaniciDayaniklilik;
+                    Bilgisayar.SkorGuncelle(fark);
+                }
+                else
+                {
+                    mesaj = "Oyun Berabere!";
+                }
+            }
 
-           
             MessageBox.Show(mesaj);
-      
-            LogForm logForm = new LogForm(tumLoglar);
-            logForm.ShowDialog();         
-           
         }
-        public void LoglariGoster()
+        public void LoglariExcelOlarakKaydet(string dosyaYolu)
         {
-            logger.LoglariYazdir();
+            logger.LoglariExcelOlarakKaydet(dosyaYolu);
         }
+
     }
 }
