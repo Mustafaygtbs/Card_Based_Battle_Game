@@ -9,7 +9,7 @@ namespace ProLab2SavasOyunu.Models.Oyuncular
     {
         public int OyuncuID { get; set; }
         public string OyuncuAdi { get; set; }
-        public int Skor { get; private set; }
+        public int Skor { get;  set; }
         public List<SavasAraclari> KartListesi { get; set; }
         private List<Guid> KullanilanKartlar { get; set; }
 

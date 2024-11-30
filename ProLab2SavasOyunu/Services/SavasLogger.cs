@@ -44,7 +44,6 @@ namespace ProLab2SavasOyunu.Services
                 worksheet.Cells[1, 7].Value = "Vurulan Hasar";
                 worksheet.Cells[1, 8].Value = "Avantaj";
                 worksheet.Cells[1, 9].Value = "Kazanılan Puan";
-
                 int row = 2;
                 foreach (var log in _loglar)
                 {
@@ -57,7 +56,6 @@ namespace ProLab2SavasOyunu.Services
                     worksheet.Cells[row, 7].Value = log.VurulanHasar;
                     worksheet.Cells[row, 8].Value = log.Avantaj;
                     worksheet.Cells[row, 9].Value = log.KazanilanPuan;
-
                     row++;
                 }
                 worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();

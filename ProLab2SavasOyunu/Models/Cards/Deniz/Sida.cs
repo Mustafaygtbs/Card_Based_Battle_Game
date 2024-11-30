@@ -27,7 +27,6 @@ namespace ProLab2SavasOyunu.Models.Cards.Deniz
         public Sida() : base() { }
         public Sida(int seviyePuani = 0) : base(seviyePuani) { }
       
-
         public override void DurumGuncelle(int hasar)
         {
             Dayaniklilik -= hasar;
@@ -38,9 +37,6 @@ namespace ProLab2SavasOyunu.Models.Cards.Deniz
                 Console.WriteLine($"{AltSinif} aracı devre dışı kaldı!");
             }
         }
-
-     
-
         public override int GetVurusAvantaji(SavasAraclari hedef)
         {
             if (hedef.Sinif == KartTipi.Kara)

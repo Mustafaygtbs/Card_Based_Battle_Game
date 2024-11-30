@@ -58,20 +58,14 @@ namespace ProLab2SavasOyunu.Controllers
                 string turNumarasi = GuncelTur.ToString();
 
 
-                if (bilgisayarKart.Dayaniklilik <= 0 || !bilgisayarKart.ElenmisMi)
+                if (bilgisayarKart.Dayaniklilik <= 0)
                 {
-                    bilgisayarKart.ElenmisMi = true;
-
-                    puanHesaplamaService.SkorHesapla(Kullanici, kullaniciKart);
+                    puanHesaplamaService.SkorHesapla(Kullanici, Bilgisayar, kullaniciKart, bilgisayarKart);
                 }
 
-
-                if (kullaniciKart.Dayaniklilik <= 0 || !kullaniciKart.ElenmisMi)
+                if (kullaniciKart.Dayaniklilik <= 0)
                 {
-                    kullaniciKart.ElenmisMi = true;
-
-
-                    puanHesaplamaService.SkorHesapla(Bilgisayar, bilgisayarKart);
+                    puanHesaplamaService.SkorHesapla(Bilgisayar, Kullanici, bilgisayarKart, kullaniciKart);
                 }
 
 
@@ -101,7 +95,6 @@ namespace ProLab2SavasOyunu.Controllers
                     KazanilanPuan = (kullaniciKart.Dayaniklilik <= 0) ? 10 : 0
                 });
 
-
                 if (bilgisayarKart.Dayaniklilik <= 0)
                 {
                     turLoglari.Add($"{Bilgisayar.OyuncuAdi}'nın {bilgisayarKart.AltSinif} kartı yok edildi!");
@@ -123,47 +116,14 @@ namespace ProLab2SavasOyunu.Controllers
 
             GuncelTur++;
 
+
             string turLoguMesaji = $"Tur {GuncelTur - 1} Sonuçları:\n";
             turLoguMesaji += string.Join("\n", turLoglari);
             MessageBox.Show(turLoguMesaji);
 
-            if (GuncelTur > ToplamTurSayisi)
-            {
-                OyunSonucu();
-            }
+          
         }
-        private void OyunSonucu()
-        {
-            string mesaj;
-            if (Kullanici.Skor > Bilgisayar.Skor)
-                mesaj = "Oyunu Kullanıcı Kazandı!";
-            else if (Bilgisayar.Skor > Kullanici.Skor)
-                mesaj = "Oyunu Bilgisayar Kazandı!";
-            else
-            {
-                int kullaniciDayaniklilik = Kullanici.KartListesi.Sum(k => k.Dayaniklilik);
-                int bilgisayarDayaniklilik = Bilgisayar.KartListesi.Sum(k => k.Dayaniklilik);
-
-                if (kullaniciDayaniklilik > bilgisayarDayaniklilik)
-                {
-                    mesaj = "Dayanıklılık puanına göre Oyunu Kullanıcı Kazandı!";
-                    int fark = kullaniciDayaniklilik - bilgisayarDayaniklilik;
-                    Kullanici.SkorGuncelle(fark);
-                }
-                else if (bilgisayarDayaniklilik > kullaniciDayaniklilik)
-                {
-                    mesaj = "Dayanıklılık puanına göre Oyunu Bilgisayar Kazandı!";
-                    int fark = bilgisayarDayaniklilik - kullaniciDayaniklilik;
-                    Bilgisayar.SkorGuncelle(fark);
-                }
-                else
-                {
-                    mesaj = "Oyun Berabere!";
-                }
-            }
-
-            MessageBox.Show(mesaj);
-        }
+ 
         public void LoglariExcelOlarakKaydet(string dosyaYolu)
         {
             logger.LoglariExcelOlarakKaydet(dosyaYolu);
